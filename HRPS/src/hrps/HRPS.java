@@ -98,6 +98,7 @@ public class HRPS {
                 case 7:
                     break;
                 case 8:
+                    hotel.roomManager.roomOccupancyReport();
                     break;
                 default:
                     System.err.println("INVALID INPUT. Enter again.");

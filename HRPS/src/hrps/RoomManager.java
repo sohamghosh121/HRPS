@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class RoomManager {
 
-    private List rooms = (ArrayList)SerializeDB.readSerializedObject("rooms.dat");
+    private ArrayList rooms =  (ArrayList)SerializeDB.readSerializedObject("rooms.dat");
 
 
     public void roomOccupancyReport()//no filters
@@ -36,10 +36,12 @@ public class RoomManager {
                 criteria = "none";
                 break;
             case 2:
+                criteria = "floor";
                 System.out.println("Enter floor: ");
                 param = sc.nextInt();
                 break;
             case 3:
+                criteria = "occupancy";
                 System.out.println("\t1. Vacant rooms");
                 System.out.println("\t2.. Occupied rooms");
                 System.out.println("\t3. Reserved rooms");
@@ -92,7 +94,7 @@ public class RoomManager {
                 return (r.getBedType() == (int)param);
 
         }
-        return true;
+        return false;
     }
 
     public void createRoom()
