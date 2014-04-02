@@ -63,6 +63,7 @@ public class RoomManager {
         String facing = sc.nextLine();
 
         Room r = new Room(number, isSmoking, hasWifi, facing, bedType, availability);
+        saveRoomDB();
         System.out.println("Room has been added to database:");
         r.showRoom();
     }
@@ -125,6 +126,7 @@ public class RoomManager {
         }
         return -1;
     }
+    
     private void saveRoomDB()//private because we don't want other objects to affect db
     {
         SerializeDB.writeSerializedObject("rooms.dat", rooms);
