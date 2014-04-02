@@ -12,14 +12,10 @@ import java.util.Scanner;
  *
  * @author Soham G
  */
-public class RoomManager extends HotelManager{
+public class RoomManager {
 
-    private List rooms = new ArrayList();
-    public RoomManager()
-    {
-        rooms = (ArrayList)SerializeDB.readSerializedObject("rooms.dat");
+    private List rooms = (ArrayList)SerializeDB.readSerializedObject("rooms.dat");
 
-    }
 
     public void roomOccupancyReport()//no filters
     {
@@ -36,7 +32,39 @@ public class RoomManager extends HotelManager{
 
     public void createRoom()
     {
-        //TODO: create room logic
+        System.out.println("Creating new room:");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\nEnter room number: ");
+        int number = sc.nextInt();
+        while (findRoom(number)==-1)
+        {
+            System.err.println("Room "+number+" already exists, enter again: ");
+            number = sc.nextInt();
+        }
+
+        System.out.println("Enter bedtype: ");
+        System.out.println("\t1. Single");
+        System.out.println("\t2. Double");
+        System.out.println("\t3. Master");
+        int bedType = sc.nextInt();
+
+        //by default add rooms as available
+        int availability = Room.VACANT;
+
+        System.out.println("Smoking? (Y/N): ");
+        String smoking= sc.nextLine();
+        boolean isSmoking = (smoking.equals("Y")) ? true: false;
+
+        System.out.println("Has WiFi? (Y/N): ");
+        String wifi= sc.nextLine();
+        boolean hasWifi = (wifi.equals("Y")) ? true: false;
+
+        System.out.println("Facing: ");
+        String facing = sc.nextLine();
+
+        Room r = new Room(number, isSmoking, hasWifi, facing, bedType, availability);
+        System.out.println("Room has been added to database:");
+        r.showRoom();
     }
 
     public void editRoom()
@@ -79,6 +107,7 @@ public class RoomManager extends HotelManager{
         System.out.println("Enter room number to remove: ");
         int roomNum = sc.nextInt();
         rooms.remove(findRoom(roomNum));
+        System.out.println("Room "+roomNum+" has been removed.");
         saveRoomDB();
     }
 

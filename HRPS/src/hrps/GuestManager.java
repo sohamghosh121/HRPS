@@ -12,15 +12,11 @@ import java.util.Scanner;
  *
  * @author Soham G
  */
-public class GuestManager extends HotelManager{
-    private List guests = new ArrayList();
-    public GuestManager()
-    {
-        guests = (ArrayList)SerializeDB.readSerializedObject("guests.dat");
+public class GuestManager {
+    private ArrayList guests = (ArrayList)SerializeDB.readSerializedObject("guests.dat");
 
-    }
 
-    public void newGuest()
+    public void createGuest()
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter name: ");
@@ -40,10 +36,11 @@ public class GuestManager extends HotelManager{
         Guest g = new Guest(name, add, gender, pp, nat, contact);
         guests.add(g);
         saveGuestsDB();
-        System.out.println("Guest has been added to database.");
+        System.out.println("Guest has been added to database:");
+        g.showGuest();
     }
 
-    
+
 
     public void showGuests()
     {

@@ -17,9 +17,6 @@ public class HRPS {
      */
     public static void showMenu()
     {
-        System.out.println("------------------------");
-        System.out.println("WELCOME to HRPS");
-        System.out.println("---------------------------------------------");
 
         System.out.println("1. Create/Update/Remove rooms details");
         System.out.println("2. Create/Update/Remove guests detail");
@@ -43,13 +40,20 @@ public class HRPS {
 
     public static void main(String[] args) {
         // TODO code application logic here
+        System.out.println("---------------------------------------------");
+        System.out.println("\tWELCOME to HRPS");
+        System.out.println("---------------------------------------------");
+
+
+
         Scanner sc = new Scanner(System.in);
         HotelManager hotel = new HotelManager();
 
 
-
         showMenu();
+
         int choice = sc.nextInt(), curchoice;
+
         while (choice != 9)
         {
             switch (choice)
@@ -61,16 +65,25 @@ public class HRPS {
                     {
                         case 1://create room
                             hotel.roomManager.createRoom();
+                            break;
                         case 2:
                             hotel.roomManager.editRoom();
+                            break;
                         case 3:
                             hotel.roomManager.removeRoom();
+                            break;
 
                     }
                     break;
                 case 2:
                     showCURmenu("guest");
                     curchoice = sc.nextInt();
+                    switch (curchoice)
+                    {
+                        case 1:
+                            hotel.guestManager.createGuest();
+                            break;
+                    }
                     break;
                 case 3:
                     showCURmenu("reservation");
@@ -88,9 +101,9 @@ public class HRPS {
                     break;
                 default:
                     System.err.println("INVALID INPUT. Enter again.");
-                    break;
 
             }
+            showMenu();
             choice = sc.nextInt();
         }
         System.out.println("System exit.");

@@ -13,18 +13,10 @@ import java.util.Scanner;
  * @author Soham G
  */
 public class HotelManager {
-    private String name;
 
-
-
-
-    protected RoomManager roomManager = new RoomManager();
+    protected RoomManager roomManager = new RoomManager();;
     protected ReservationManager reservationManager = new ReservationManager();
-    //private ReservationManager reservationManager = new ReservationManager();
-    //private GuestManager guestManager = new GuestManager();
-    public HotelManager()
-    {
-    }
+    protected GuestManager guestManager = new GuestManager();
 
     public void checkIn()
     {
@@ -48,7 +40,7 @@ public class HotelManager {
         }
 
         int res_id = reservationManager.findReservation();
-        
+
     }
 
 }

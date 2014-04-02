@@ -11,13 +11,9 @@ import java.util.List;
  *
  * @author Soham G
  */
-public class ReservationManager extends HotelManager{
-    private List reservations = new ArrayList();
-    public ReservationManager()
-    {
-        reservations = (ArrayList)SerializeDB.readSerializedObject("reservations.dat");
+public class ReservationManager{
+    private List reservations = (ArrayList)SerializeDB.readSerializedObject("reservations.dat");
 
-    }
 
     public void makeReservation()
     {
