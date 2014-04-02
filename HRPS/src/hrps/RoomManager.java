@@ -19,16 +19,81 @@ public class RoomManager {
 
     public void roomOccupancyReport()//no filters
     {
-        int i;
+        int i, param = -1;
+        Scanner sc = new Scanner(System.in);
         Room r;
+        String criteria = "none";
+
+        System.out.println("Search by:");
+        System.out.println("\t1. No criteria");
+        System.out.println("\t2. Floor");
+        System.out.println("\t3. Occupancy");
+        i = sc.nextInt();
+
+        switch(i)
+        {
+            case 1:
+                criteria = "none";
+                break;
+            case 2:
+                System.out.println("Enter floor: ");
+                param = sc.nextInt();
+                break;
+            case 3:
+                System.out.println("\t1. Vacant rooms");
+                System.out.println("\t2.. Occupied rooms");
+                System.out.println("\t3. Reserved rooms");
+                System.out.println("\t4. Under-maintenance rooms");
+                System.out.println("Enter choice: ");
+                int choice = sc.nextInt();
+                switch(choice)
+                {
+                    case 1:
+                        param = Room.VACANT;
+                        break;
+                    case 2:
+                        param = Room.OCCUPIED;
+                        break;
+                    case 3:
+                        param = Room.RESERVED;
+                        break;
+                    case 4:
+                        param = Room.UNDER_MAINTENANCE;
+                        break;
+                    default:
+                        System.err.println("Invalid choice.");
+                        param = -1;                }
+
+        }
+
+
         System.out.println("Room Occupancy:");
         for (i= 0; i<rooms.size();i++)
         {
             r = (Room)rooms.get(i);
-            r.showRoom();
+            if (searchByCriteria(param, criteria, r))
+                r.showRoom();
         }
     }
 
+
+
+    private boolean searchByCriteria(Object param, String criteria, Room r)
+    {
+        switch(criteria)
+        {
+            case "none":
+                return true;
+            case "floor":
+                return (r.getRoomNumber()/100 == (int)param);
+            case "occupancy":
+                return (r.getAvailability() == (int)param);
+            case "bedtype":
+                return (r.getBedType() == (int)param);
+
+        }
+        return true;
+    }
 
     public void createRoom()
     {
@@ -126,7 +191,7 @@ public class RoomManager {
         }
         return -1;
     }
-    
+
     private void saveRoomDB()//private because we don't want other objects to affect db
     {
         SerializeDB.writeSerializedObject("rooms.dat", rooms);

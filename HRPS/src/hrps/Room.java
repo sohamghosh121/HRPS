@@ -34,12 +34,23 @@ public class Room implements Serializable{
     {
         return number;
     }
-    public void showRoom()
+
+    public int getAvailability()
     {
-        System.out.println("Room "+number+"\t"+getBedType()+"\t"+getOccupancy());
+        return availability;
     }
 
-    public String getBedType()
+    public int getBedType()
+    {
+        return bedType;
+    }
+
+    public void showRoom()
+    {
+        System.out.println("Room "+number+"\t"+getBedTypeString()+"\t"+getAvailabilityString());
+    }
+
+    public String getBedTypeString()
     {
         switch (bedType)
         {
@@ -54,7 +65,8 @@ public class Room implements Serializable{
         }
     }
 
-    public String getOccupancy()
+
+    public String getAvailabilityString()
     {
         switch(availability)
         {
