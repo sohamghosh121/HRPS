@@ -13,25 +13,18 @@ import java.util.Scanner;
  * @author Soham G
  */
 public class GuestManager {
-    private ArrayList guests = (ArrayList)SerializeDB.readSerializedObject("guests.dat");
+    private static ArrayList guests = (ArrayList)SerializeDB.readSerializedObject("guests.dat");
 
 
     public void createGuest()
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter name: ");
-        String name = sc.nextLine();
-        System.out.println("Enter address: ");
-        String add = sc.nextLine();
-        System.out.println("Enter gender (M/F): ");
-        String sex= sc.nextLine();
-        int gender = (sex.equals("M")) ? Guest.MALE : Guest.FEMALE;
-        System.out.println("Enter passport number: ");
-        String pp = sc.nextLine();
-        System.out.println("Enter nationality: ");
-        String nat = sc.nextLine();
-        System.out.println("Enter contact: ");
-        String contact = sc.nextLine();
+        String name = CURmenus.promptName();
+        String add = CURmenus.promptAddress();
+        int gender = CURmenus.promptGender();
+        String pp = CURmenus.promptPPnum();
+        String nat = CURmenus.promptNationality();
+        String contact = CURmenus.promptContact();
+
 
         Guest g = new Guest(name, add, gender, pp, nat, contact);
         guests.add(g);
@@ -40,7 +33,97 @@ public class GuestManager {
         g.showGuest();
     }
 
+    public void editRoom()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter passport number of guest: ");
+        String passportNumber = sc.nextLine();
+        int guestIndex = findGuest(passportNumber);
+        if (guestIndex != -1)//if room is found
+        {
+            //look for guest
+            Guest g = (Guest)guests.get(guestIndex);
+            System.out.println("Guest found:");
+            g.showGuest();
 
+            //show edit menu
+            CURmenus.promptEditGuestMenu();
+
+
+            int editChoice = sc.nextInt();
+            switch(editChoice)
+            {
+                case 1:
+                    String name = CURmenus.promptName();
+                    g.setName(name);
+                    break;
+                case 2:
+                    String add = CURmenus.promptAddress();
+                    g.setAddress(add);
+                    break;
+                case 3:
+                    int gender = CURmenus.promptGender();
+                    g.setGender(gender);
+                    break;
+                case 4:
+                    String pp = CURmenus.promptPPnum();
+                    g.setPassportNumber(pp);
+                    break;
+                case 5:
+                    String nat = CURmenus.promptNationality();
+                    g.setNationality(nat);
+                    break;
+                case 6:
+                    String c = CURmenus.promptContact();
+                    g.setContact(c);
+                    break;
+                default:
+                    System.err.println("Invalid choice.");
+
+            }
+            saveGuestsDB();
+        }
+    }
+
+    public void removeGuest()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter passport number of guest to remove: ");
+        String ppNum= sc.nextLine();
+
+        int index = findGuest(ppNum);
+
+        if (index != -1)
+        {
+            Guest g = (Guest)guests.get(index);
+            g.showGuest();
+            guests.remove(index);
+            System.out.println("Guest has been removed.");
+            saveGuestsDB();
+        }
+        else {
+            System.out.print("Guest does not exist.");
+        }
+    }
+
+    public static boolean guestExists(String ppNum)
+    {
+        return (findGuest(ppNum)!=-1);
+    }
+
+    private static int findGuest(String ppNum)
+    {
+        int i;
+        Guest g;
+        for (i = 0; i < guests.size(); i++)
+        {
+            g= (Guest)guests.get(i);
+            if (g.getPassportNumber()==ppNum);
+                return i;
+
+        }
+        return -1;
+    }
 
     public void showGuests()
     {

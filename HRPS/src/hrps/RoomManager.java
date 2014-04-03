@@ -144,6 +144,8 @@ public class RoomManager {
                 case 3:
                     int availability = CURmenus.promptAvailability();
                     break;
+                default:
+                    System.err.println("Invalid choice.");
             }
         }
     }
@@ -159,6 +161,7 @@ public class RoomManager {
 
         if (index != -1)
         {
+            rooms.remove(index);
             System.out.println("Room "+roomNum+" has been removed.");
             saveRoomDB();
         }

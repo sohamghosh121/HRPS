@@ -118,4 +118,54 @@ public class CURmenus {
         return availability;
     }
 
+
+    //GUEST CUR MENUS
+
+    static void promptEditGuestMenu()
+    {
+            System.out.println("Choose what to edit: ");
+            System.out.println("1. Name");
+            System.out.println("2. Address");
+            System.out.println("3. Gender");
+            System.out.println("4. Passport Number");
+            System.out.println("5. Nationality");
+            System.out.println("6. Contact");
+    }
+
+    static String promptName() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    static String promptAddress() {
+        System.out.println("Enter address: ");
+        return sc.nextLine();
+    }
+
+    static int promptGender() {
+        System.out.println("Enter gender (M/F): ");
+        String sex= sc.nextLine();
+        int gender = (sex.equals("M")||sex.equals("m")) ? Guest.MALE : Guest.FEMALE;
+        return gender;
+    }
+
+    static String promptPPnum() {
+        System.out.println("Enter passport number: ");
+        String pp = sc.nextLine();
+        return pp;
+    }
+
+    static String promptNationality() {
+        System.out.println("Enter nationality: ");
+        String nat = sc.nextLine();
+        return nat;
+    }
+
+    static String promptContact() {
+        System.out.println("Enter contact: ");
+        String contact = sc.nextLine();
+        return contact;
+    }
+
+
+
 }
