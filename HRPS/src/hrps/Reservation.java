@@ -12,11 +12,10 @@ import java.util.Calendar;
  * @author Soham G
  */
 public class Reservation implements Serializable {
-    public static final int CONFIRMED = 1, IN_WAITLIST = 2, INQUIRY = 3, CHECKED_IN = 4, EXPIRED = -1;
+    public static final int CONFIRMED = 1, IN_WAITLIST = 2, INQUIRY = 3, CHECKED_IN = 4, CHECKED_OUT = 5, EXPIRED = -1;
 
     private Guest guest;
     private Room room;
-    private String id;
     private String creditCardNo;
     private Calendar checkInDate;
     private Calendar checkOutDate;
@@ -24,7 +23,8 @@ public class Reservation implements Serializable {
     private int nChildren;
     private int status;
     private Calendar creationDate;
-
+    private Calendar expiryDate;
+    private Bill bill;
 
     public Reservation (Room r, Guest g, String ccNo, int nAdults, int nChildren)
     {
@@ -34,9 +34,13 @@ public class Reservation implements Serializable {
         this.creditCardNo = ccNo;
         this.nAdults = nAdults;
         this.nChildren = nChildren;
-
         creationDate = Calendar.getInstance();
-        String id = room.getRoomNumber()+guest.getPassportNumber().substring(1, 4)+this.creditCardNo.substring(1,4);
+        expiryDate = (Calendar)creationDate.clone();
+        expiryDate.set(Calendar.HOUR, creationDate.get(Calendar.HOUR)+1);
+        bill = null;
+
+
+
     }
 
 
@@ -50,7 +54,7 @@ public class Reservation implements Serializable {
         //System.out.println("Check in: "+checkInDate.toString());
         //System.out.println("Check out: "+checkOutDate.toString());
         System.out.println(nAdults+" adults, "+nChildren+" children");
-        System.out.println("STATUS: "+getStatus());
+        System.out.println("STATUS: "+getStatusString());
 
 
     }
@@ -61,9 +65,19 @@ public class Reservation implements Serializable {
         return cc;
     }
 
-    
+    public boolean checkExpired()
+    {
+        Calendar now = Calendar.getInstance();
+        if (now.compareTo(expiryDate)>0)
+        {
+            this.status = Reservation.EXPIRED;
+            return true;
+        }
+        else
+            return false;
+    }
 
-    private String getStatus()
+    private String getStatusString()
     {
         String s="";
         switch(status)
@@ -87,6 +101,11 @@ public class Reservation implements Serializable {
         return s;
     }
 
+    public int getStatus()
+    {
+        return status;
+    }
+
     public void setStatus(int status)
     {
         this.status = status;
@@ -96,17 +115,34 @@ public class Reservation implements Serializable {
     {
         status = this.CHECKED_IN;
         checkInDate = Calendar.getInstance();
+        System.out.println("Check In Successful!");
+        bill = new Bill();
     }
 
+    public void checkout(){
+        status=this.CHECKED_OUT;
+        checkOutDate=Calendar.getInstance();
+    }
     public void printReservationReceipt()
     {
         System.out.println("\nReservation receipt:");
-        System.out.println("ID: "+this.id);
         System.out.println(guest.getName()+guest.getContact());
         System.out.println(showCreditCardNo());
         System.out.println("Room# "+room.getRoomNumber());
-        System.out.println(this.getStatus());
+        System.out.println(this.getStatusString());
+    }
 
+    public Bill getBill()
+    {
+        return bill;
+    }
 
+    public void addCharges(Charge c)
+    {
+        bill.add(c);
+    }
+
+    int getRoomNumber() {
+        return this.room.getRoomNumber();
     }
 }

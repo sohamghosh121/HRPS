@@ -74,7 +74,16 @@ public class HRPS {
                     {
                         case 1:
                             hotel.guestManager.createGuest();
+                            hotel.guestManager.showGuests();
                             break;
+                        case 2:
+                            hotel.guestManager.editGuest();
+                            break;
+                        case 3:
+                            hotel.guestManager.removeGuest();
+                            break;
+                        default:
+                            System.err.println("Invalid choice.");
                     }
                     break;
                 case 3:
@@ -86,8 +95,10 @@ public class HRPS {
                             hotel.makeReservation();
                             break;
                         case 2:
+                            hotel.reservationManager.editReservation();
                             break;
                         case 3:
+                            hotel.reservationManager.deleteReservation();
                             break;
                         default:
                             System.err.println("Invalid choice.");
@@ -101,8 +112,10 @@ public class HRPS {
                     hotel.roomManager.checkAvailability(rn);
                     break;
                 case 6:
+                    hotel.reservationManager.checkIn();
                     break;
                 case 7:
+                    hotel.checkOut();
                     break;
                 case 8:
                     hotel.roomManager.roomOccupancyReport();

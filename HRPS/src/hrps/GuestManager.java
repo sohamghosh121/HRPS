@@ -120,11 +120,12 @@ public class GuestManager {
         Guest g;
         for (i = 0; i < guests.size(); i++)
         {
-            g= (Guest)guests.get(i);
-            if (g.getPassportNumber()==ppNum);
+            g = (Guest)guests.get(i);
+            if (g.getPassportNumber().equals(ppNum))
                 return i;
 
         }
+        System.err.println("Guest not found");
         return -1;
     }
 

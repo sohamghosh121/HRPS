@@ -208,7 +208,7 @@ public class RoomManager {
         else
             System.err.println("Room not found.");
     }
-    private static int findRoom(int roomNum)
+    public static int findRoom(int roomNum)
     {
         int i;
         Room r;
@@ -228,7 +228,7 @@ public class RoomManager {
         System.out.println("Enter room number: ");
         int rn = sc.nextInt(), index;
         index = findRoom(rn);
-        if (index==-1)
+        if (index!=-1)
             return (Room)rooms.get(index);
         else
             return null;
@@ -237,5 +237,17 @@ public class RoomManager {
     private void saveRoomDB()//private because we don't want other objects to affect db
     {
         SerializeDB.writeSerializedObject("rooms.dat", rooms);
+    }
+
+    void makeAvailable(int rr) {
+        int index = findRoom(rr);
+        if (index != -1)
+        {
+            Room r = (Room)rooms.get(index);
+            r.setAvailability(Room.VACANT);
+            saveRoomDB();
+        }
+        else
+            System.err.println("Room not found.");
     }
 }

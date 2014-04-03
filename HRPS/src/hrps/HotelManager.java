@@ -5,6 +5,7 @@
 package hrps;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,37 +43,45 @@ public class HotelManager {
         g.showGuest();
 
         Room r = roomManager.chooseRoom();
+        if (r.equals(null))
+        {
+            System.err.println("Room not found.");
+        }
+        if (!reservationManager.existsReservation(r.getRoomNumber()))
+        {
+            System.out.println("Enter credit card no: ");
+            String cc = sc.next();
 
-        System.out.println("Enter credit card no: ");
-        String cc = sc.nextLine();
+            System.out.println("Enter number of adults: ");
+            int nAdults = sc.nextInt();
 
-        System.out.println("Enter number of adults: ");
-        int nAdults = sc.nextInt();
-
-        System.out.println("Enter number of children: ");
-        int nChildren = sc.nextInt();
+            System.out.println("Enter number of children: ");
+            int nChildren = sc.nextInt();
 
 
-        Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren);
-        reservationManager.addReservation(newReservation);
-        newReservation.printReservationReceipt();
+            Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren);
+            reservationManager.addReservation(newReservation);
+            newReservation.printReservationReceipt();
+        }
+
 
 
     }
 
     public void checkOut()
     {
+        int rr,p;
+        Guest g;
+        Scanner sc= new Scanner(System.in);
+        System.out.println("Enter room number to check out:");
+        rr=sc.nextInt();
+        reservationManager.deleteReservation(rr);
+        Reservation r = reservationManager.getReservation(rr);
+        roomManager.makeAvailable(rr);
+        r.getBill().printBill();
+    }
+
 
     }
 
-    public void addCharges()
-    {
-        System.out.println("Enter room number: ");
-        //get room, check for reservation
-        //if there is reservation, then ask for amount, ask for type
-        //print successfully added charges
 
-        //else if no reservation (room not occupied)
-    }
-
-}

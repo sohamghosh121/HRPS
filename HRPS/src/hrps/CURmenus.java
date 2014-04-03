@@ -134,36 +134,37 @@ public class CURmenus {
     }
 
     static String promptName() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        System.out.println("Enter name: ");
+        return sc.next();
     }
 
     static String promptAddress() {
         System.out.println("Enter address: ");
-        return sc.nextLine();
+        return sc.next();
     }
 
     static int promptGender() {
         System.out.println("Enter gender (M/F): ");
-        String sex= sc.nextLine();
+        String sex= sc.next();
         int gender = (sex.equals("M")||sex.equals("m")) ? Guest.MALE : Guest.FEMALE;
         return gender;
     }
 
     static String promptPPnum() {
         System.out.println("Enter passport number: ");
-        String pp = sc.nextLine();
+        String pp = sc.next();
         return pp;
     }
 
     static String promptNationality() {
         System.out.println("Enter nationality: ");
-        String nat = sc.nextLine();
+        String nat = sc.next();
         return nat;
     }
 
     static String promptContact() {
         System.out.println("Enter contact: ");
-        String contact = sc.nextLine();
+        String contact = sc.next();
         return contact;
     }
 
