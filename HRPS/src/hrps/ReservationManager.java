@@ -44,7 +44,6 @@ public class ReservationManager{
         }
           System.err.println("No reservation found.");
           return -1;
-
     }
 
     public Reservation getReservation(int roomNo)
@@ -176,6 +175,18 @@ public class ReservationManager{
                 r.addCharges(c);
             }
 
+        }
+    }
+
+    public void showReservations()
+    {
+        int i;
+        Reservation r;
+        System.out.println("Reservations:");
+        for (i= 0; i<reservations.size();i++)
+        {
+            r = (Reservation)reservations.get(i);
+            r.showReservation();
         }
     }
 

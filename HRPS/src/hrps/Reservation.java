@@ -142,6 +142,11 @@ public class Reservation implements Serializable {
         bill.add(c);
     }
 
+    public void showReservation()
+    {
+        System.out.println(guest.getName()+"\tRoom#"+room.getRoomNumber()+"\t"+getStatusString());
+    }
+
     int getRoomNumber() {
         return this.room.getRoomNumber();
     }

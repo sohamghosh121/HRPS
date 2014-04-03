@@ -24,7 +24,9 @@ public class HRPS {
         System.out.println("6. Check-in");
         System.out.println("7. Check-out and print bill invoice");
         System.out.println("8. Print Room Occupancy report (by room type, by floor level, etc)");
-        System.out.println("9. Exit");
+        System.out.println("9. Show all reservations");
+        System.out.println("10. Show all guests");
+        System.out.println("11. Exit");
         System.out.print("Enter choice: ");
     }
 
@@ -46,7 +48,7 @@ public class HRPS {
 
         int choice = sc.nextInt(), curchoice;
 
-        while (choice != 9)
+        while (choice != 11)
         {
             switch (choice)
             {
@@ -119,6 +121,12 @@ public class HRPS {
                     break;
                 case 8:
                     hotel.roomManager.roomOccupancyReport();
+                    break;
+                case 9:
+                    hotel.reservationManager.showReservations();
+                    break;
+                case 10:
+                    hotel.guestManager.showGuests();
                     break;
                 default:
                     System.err.println("INVALID INPUT. Enter again.");
