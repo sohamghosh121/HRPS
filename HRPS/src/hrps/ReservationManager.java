@@ -16,14 +16,14 @@ public class ReservationManager{
     private List reservations = (ArrayList)SerializeDB.readSerializedObject("reservations.dat");
 
 
-    public void makeReservation()
-    {
+
+
+
         //new guest? if yes proceed to making new guest
         //else search for guest by passport number
         //take necessary details- credcardno, nAdults, nChildren
         //create reservation object and add it to list. status default:
-    }
-
+    
     public void checkIn()
     {
         Scanner sc = new Scanner(System.in);
@@ -47,7 +47,8 @@ public class ReservationManager{
 
         int res_id = findReservation();
         Reservation r = (Reservation)reservations.get(res_id);
-        r.setStatus(Reservation.CHECKED_IN);
+        r.checkIn();
+
 
     }
 

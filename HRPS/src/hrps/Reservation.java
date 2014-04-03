@@ -82,4 +82,10 @@ public class Reservation implements Serializable {
     {
         this.status = status;
     }
+
+    public void checkIn()
+    {
+        status = this.CHECKED_IN;
+        checkInDate = Calendar.getInstance();
+    }
 }

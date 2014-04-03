@@ -16,7 +16,7 @@ public class GuestManager {
     private static ArrayList guests = (ArrayList)SerializeDB.readSerializedObject("guests.dat");
 
 
-    public void createGuest()
+    public Guest createGuest()
     {
         String name = CURmenus.promptName();
         String add = CURmenus.promptAddress();
@@ -31,6 +31,7 @@ public class GuestManager {
         saveGuestsDB();
         System.out.println("Guest has been added to database:");
         g.showGuest();
+        return g;
     }
 
     public void editGuest()
@@ -38,7 +39,7 @@ public class GuestManager {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter passport number of guest: ");
         String passportNumber = sc.nextLine();
-        int guestIndex = findGuest(passportNumber);
+        int guestIndex = findGuestIndex(passportNumber);
         if (guestIndex != -1)//if room is found
         {
             //look for guest
@@ -93,7 +94,7 @@ public class GuestManager {
         System.out.println("Enter passport number of guest to remove: ");
         String ppNum= sc.nextLine();
 
-        int index = findGuest(ppNum);
+        int index = findGuestIndex(ppNum);
 
         if (index != -1)
         {
@@ -110,10 +111,10 @@ public class GuestManager {
 
     public static boolean guestExists(String ppNum)
     {
-        return (findGuest(ppNum)!=-1);
+        return (findGuestIndex(ppNum)!=-1);
     }
 
-    private static int findGuest(String ppNum)
+    public static int findGuestIndex(String ppNum)
     {
         int i;
         Guest g;
@@ -125,6 +126,11 @@ public class GuestManager {
 
         }
         return -1;
+    }
+
+    public static Guest findGuest(String ppNum)
+    {
+        return (Guest)guests.get(findGuestIndex(ppNum));
     }
 
     public void showGuests()

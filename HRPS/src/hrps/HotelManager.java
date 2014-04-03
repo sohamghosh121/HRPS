@@ -19,6 +19,28 @@ public class HotelManager {
     protected GuestManager guestManager = new GuestManager();
 
 
+    public void makeReservation()
+    {
+        System.out.println("Create reservation:");
+        System.out.println("New guest: (Y/N)");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+
+        if (input.toLowerCase().equals("y"))
+        {
+            guestManager.createGuest();
+        }
+        else if (input.toLowerCase().equals("n"))
+        {
+
+            System.out.println("Enter Passport Number of guest: ");
+            String pp = sc.next();
+            Guest g = guestManager.findGuest(pp);
+
+
+
+        }
+    }
 
     public void checkOut()
     {
