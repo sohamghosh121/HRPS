@@ -22,6 +22,10 @@ public class Guest implements Serializable{
     private String nationality;
     private String contact;//email ID
 
+    public Guest()
+    {
+        
+    }
     public Guest (String n, String a, int g, String pp, String nat, String c)
     {
         name = n;
@@ -38,7 +42,7 @@ public class Guest implements Serializable{
         System.out.println("Name: "+name+"\tContact: "+contact);
     }
 
-    
+
 
     public String getName() {
         return name;

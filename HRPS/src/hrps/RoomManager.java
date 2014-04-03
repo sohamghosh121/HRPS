@@ -222,6 +222,18 @@ public class RoomManager {
         return -1;
     }
 
+    public Room chooseRoom()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter room number: ");
+        int rn = sc.nextInt(), index;
+        index = findRoom(rn);
+        if (index==-1)
+            return (Room)rooms.get(index);
+        else
+            return null;
+    }
+
     private void saveRoomDB()//private because we don't want other objects to affect db
     {
         SerializeDB.writeSerializedObject("rooms.dat", rooms);

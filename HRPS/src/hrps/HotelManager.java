@@ -19,27 +19,44 @@ public class HotelManager {
     protected GuestManager guestManager = new GuestManager();
 
 
+
     public void makeReservation()
     {
         System.out.println("Create reservation:");
         System.out.println("New guest: (Y/N)");
         Scanner sc = new Scanner(System.in);
         String input = sc.next();
-
+        Guest g = new Guest();
         if (input.toLowerCase().equals("y"))
         {
-            guestManager.createGuest();
+            g = guestManager.createGuest();
         }
         else if (input.toLowerCase().equals("n"))
         {
 
             System.out.println("Enter Passport Number of guest: ");
             String pp = sc.next();
-            Guest g = guestManager.findGuest(pp);
-
-
-
+            g = guestManager.findGuest(pp);
         }
+        System.out.println("Reservation for");
+        g.showGuest();
+
+        Room r = roomManager.chooseRoom();
+
+        System.out.println("Enter credit card no: ");
+        String cc = sc.nextLine();
+
+        System.out.println("Enter number of adults: ");
+        int nAdults = sc.nextInt();
+
+        System.out.println("Enter number of children: ");
+        int nChildren = sc.nextInt();
+
+
+        Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren);
+        reservationManager.addReservation(newReservation);
+
+
     }
 
     public void checkOut()

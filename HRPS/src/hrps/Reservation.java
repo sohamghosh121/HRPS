@@ -17,7 +17,7 @@ public class Reservation implements Serializable {
     private Guest guest;
     private Room room;
     private String id;
-    private int creditCardNo;
+    private String creditCardNo;
     private Calendar checkInDate;
     private Calendar checkOutDate;
     private int nAdults;
@@ -26,8 +26,15 @@ public class Reservation implements Serializable {
     private Calendar creationDate;
 
 
-    public Reservation ()
+    public Reservation (Room r, Guest g, String ccNo, int nAdults, int nChildren)
     {
+
+        this.room = r;
+        this.guest = g;
+        this.creditCardNo = ccNo;
+        this.nAdults = nAdults;
+        this.nChildren = nChildren;
+
         creationDate = Calendar.getInstance();
         String id = room.getRoomNumber()+guest.getPassportNumber().substring(1, 4);
     }
@@ -50,7 +57,7 @@ public class Reservation implements Serializable {
 
     private String showCreditCardNo()
     {
-        String cc = "xxxx-xxxx-"+(creditCardNo%10000);
+        String cc = "xxxx-xxxx-xxxx-"+creditCardNo.substring(12);
         return cc;
     }
 
