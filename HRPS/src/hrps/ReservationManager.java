@@ -18,9 +18,9 @@ public class ReservationManager{
     public void makeReservation()
     {
         //new guest? if yes proceed to making new guest
-        //else search for guest. by name.
-        //take necessary details
-        //create reservation object and add it to list
+        //else search for guest by passport number
+        //take necessary details- credcardno, nAdults, nChildren
+        //create reservation object and add it to list. status default:
     }
 
     public int findReservation()

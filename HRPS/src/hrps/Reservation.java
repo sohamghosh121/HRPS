@@ -16,7 +16,7 @@ public class Reservation implements Serializable {
 
     private Guest guest;
     private Room room;
-    private int id;
+    private String id;
     private int creditCardNo;
     private Calendar checkInDate;
     private Calendar checkOutDate;
@@ -29,6 +29,7 @@ public class Reservation implements Serializable {
     public Reservation ()
     {
         creationDate = Calendar.getInstance();
+        String id = room.getRoomNumber()+guest.getPassportNumber().substring(1, 4);
     }
 
 

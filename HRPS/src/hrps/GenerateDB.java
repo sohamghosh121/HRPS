@@ -5,7 +5,9 @@
 package hrps;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -14,6 +16,9 @@ import java.util.List;
 public class GenerateDB {
     public static void main(String[] args) {
         //To generate ROOMS
+        Calendar c = Calendar.getInstance();
+        System.out.println(c.get(Calendar.MINUTE));
+        /*
         int floor = 100, rn = 1, roomNum;
         int availability = Room.VACANT;
         int bedType;
@@ -43,6 +48,7 @@ public class GenerateDB {
             }
         }
     SerializeDB.writeSerializedObject("rooms.dat", listOfRooms);
+    * */
     }
 
 }
