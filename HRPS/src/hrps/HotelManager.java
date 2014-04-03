@@ -55,6 +55,7 @@ public class HotelManager {
 
         Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren);
         reservationManager.addReservation(newReservation);
+        newReservation.printReservationReceipt();
 
 
     }

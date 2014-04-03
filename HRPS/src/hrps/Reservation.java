@@ -36,7 +36,7 @@ public class Reservation implements Serializable {
         this.nChildren = nChildren;
 
         creationDate = Calendar.getInstance();
-        String id = room.getRoomNumber()+guest.getPassportNumber().substring(1, 4);
+        String id = room.getRoomNumber()+guest.getPassportNumber().substring(1, 4)+this.creditCardNo.substring(1,4);
     }
 
 
@@ -60,6 +60,8 @@ public class Reservation implements Serializable {
         String cc = "xxxx-xxxx-xxxx-"+creditCardNo.substring(12);
         return cc;
     }
+
+    
 
     private String getStatus()
     {
@@ -94,5 +96,17 @@ public class Reservation implements Serializable {
     {
         status = this.CHECKED_IN;
         checkInDate = Calendar.getInstance();
+    }
+
+    public void printReservationReceipt()
+    {
+        System.out.println("\nReservation receipt:");
+        System.out.println("ID: "+this.id);
+        System.out.println(guest.getName()+guest.getContact());
+        System.out.println(showCreditCardNo());
+        System.out.println("Room# "+room.getRoomNumber());
+        System.out.println(this.getStatus());
+
+
     }
 }

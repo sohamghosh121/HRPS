@@ -80,6 +80,18 @@ public class HRPS {
                 case 3:
                     CURmenus.showCURmenu("reservation");
                     curchoice = sc.nextInt();
+                    switch (curchoice)
+                    {
+                        case 1:
+                            hotel.makeReservation();
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            System.err.println("Invalid choice.");
+                    }
                     break;
                 case 4:
                     break;
