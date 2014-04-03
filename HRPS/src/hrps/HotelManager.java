@@ -43,4 +43,19 @@ public class HotelManager {
 
     }
 
+    public void checkOut()
+    {
+
+    }
+
+    public void addCharges()
+    {
+        System.out.println("Enter room number: ");
+        //get room, check for reservation
+        //if there is reservation, then ask for amount, ask for type
+        //print successfully added charges
+
+        //else if no reservation (room not occupied)
+    }
+
 }

@@ -40,6 +40,11 @@ public class Room implements Serializable{
         return availability;
     }
 
+    public RoomType getRoomType()
+    {
+        return this.type;
+    }
+
     public int getBedType()
     {
         return bedType;
@@ -47,7 +52,7 @@ public class Room implements Serializable{
 
     public void showRoom()
     {
-        System.out.println("Room "+number+"\t"+getBedTypeString()+"\t"+getAvailabilityString());
+        System.out.println("Room "+number+"\t"+getBedTypeString()+"\tFacing: "+type+"\t"+getAvailabilityString());
     }
 
     public String getBedTypeString()

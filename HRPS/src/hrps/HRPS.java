@@ -12,9 +12,7 @@ import java.util.Scanner;
  */
 public class HRPS {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void showMenu()
     {
 
@@ -30,13 +28,7 @@ public class HRPS {
         System.out.print("Enter choice: ");
     }
 
-    public static void showCURmenu(String what)
-    {
-        System.out.println("\n\t1. Create new "+what);
-        System.out.println("\t2. Update "+what+" details");
-        System.out.println("\t3. Remove "+what);
-        System.out.print("Enter choice: ");
-    }
+
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -59,7 +51,7 @@ public class HRPS {
             switch (choice)
             {
                 case 1:
-                    showCURmenu("room");
+                    CURmenus.showCURmenu("room");
                     curchoice = sc.nextInt();
                     switch(curchoice)
                     {
@@ -76,7 +68,7 @@ public class HRPS {
                     }
                     break;
                 case 2:
-                    showCURmenu("guest");
+                    CURmenus.showCURmenu("guest");
                     curchoice = sc.nextInt();
                     switch (curchoice)
                     {
@@ -86,7 +78,7 @@ public class HRPS {
                     }
                     break;
                 case 3:
-                    showCURmenu("reservation");
+                    CURmenus.showCURmenu("reservation");
                     curchoice = sc.nextInt();
                     break;
                 case 4:

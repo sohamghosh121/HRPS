@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Soham G
  */
 public class Bill {
-    ArrayList charges;
+    ArrayList charges = new ArrayList();
 
     public void addCharges(String chargeName, double amount, int type, boolean isWeekEnd, double discount)
     {

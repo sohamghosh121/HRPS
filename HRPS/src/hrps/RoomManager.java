@@ -14,9 +14,10 @@ import java.util.Scanner;
  */
 public class RoomManager {
 
-    private ArrayList rooms =  (ArrayList)SerializeDB.readSerializedObject("rooms.dat");
+    private static ArrayList rooms =  (ArrayList)SerializeDB.readSerializedObject("rooms.dat");
 
 
+    //DONE.
     public void roomOccupancyReport()//no filters
     {
         int i, param = -1;
@@ -78,8 +79,6 @@ public class RoomManager {
         }
     }
 
-
-
     private boolean searchByCriteria(Object param, String criteria, Room r)
     {
         switch(criteria)
@@ -99,36 +98,15 @@ public class RoomManager {
 
     public void createRoom()
     {
-        System.out.println("Creating new room:");
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\nEnter room number: ");
-        int number = sc.nextInt();
-        while (findRoom(number)==-1)
-        {
-            System.err.println("Room "+number+" already exists, enter again: ");
-            number = sc.nextInt();
-        }
+        System.out.println("Creating new room: ("+rooms.size()+" rooms exist)");
 
-        System.out.println("Enter bedtype: ");
-        System.out.println("\t1. Single");
-        System.out.println("\t2. Double");
-        System.out.println("\t3. Master");
-        int bedType = sc.nextInt();
-
+        int number = CURmenus.promptRoomNumber();
+        int bedType = CURmenus.promptBedType();
         //by default add rooms as available
         int availability = Room.VACANT;
-
-        System.out.println("Smoking? (Y/N): ");
-        String smoking= sc.nextLine();
-        boolean isSmoking = (smoking.equals("Y")) ? true: false;
-
-        System.out.println("Has WiFi? (Y/N): ");
-        String wifi= sc.nextLine();
-        boolean hasWifi = (wifi.equals("Y")) ? true: false;
-
-        System.out.println("Facing: ");
-        String facing = sc.nextLine();
-
+        boolean isSmoking = CURmenus.promptSmoking();
+        boolean hasWifi = CURmenus.promptWiFi();
+        String facing = CURmenus.promptFacing();
         Room r = new Room(number, isSmoking, hasWifi, facing, bedType, availability);
         saveRoomDB();
         System.out.println("Room has been added to database:");
@@ -139,7 +117,7 @@ public class RoomManager {
     {
         //TODO: edit room logic
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter room number to remove: ");
+        System.out.println("Enter room number to edit: ");
         int roomNum = sc.nextInt();
         int roomIndex = findRoom(roomNum);
         if (roomIndex != -1)//if room is found
@@ -160,9 +138,11 @@ public class RoomManager {
             {
                 case 1: //edit Type
                     break;
-                case 2: //edit Bed Type
+                case 2:
+                    int bedType = CURmenus.promptBedType();
                     break;
-                case 3: //edit Availability
+                case 3:
+                    int availability = CURmenus.promptAvailability();
                     break;
             }
         }
@@ -174,20 +154,34 @@ public class RoomManager {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter room number to remove: ");
         int roomNum = sc.nextInt();
-        rooms.remove(findRoom(roomNum));
-        System.out.println("Room "+roomNum+" has been removed.");
-        saveRoomDB();
+
+        int index = findRoom(roomNum);
+
+        if (index != -1)
+        {
+            System.out.println("Room "+roomNum+" has been removed.");
+            saveRoomDB();
+        }
+        else {
+            System.out.print("Room does not exist.");
+        }
+
+
     }
 
+    public static boolean roomExists(int roomNum)
+    {
+        return (findRoom(roomNum)!=-1);
+    }
 
-    private int findRoom(int roomNum)
+    private static int findRoom(int roomNum)
     {
         int i;
         Room r;
         for (i = 0; i < rooms.size(); i++)
         {
             r= (Room)rooms.get(i);
-            if (r.getRoomNumber()==roomNum)
+            if (r.getRoomNumber()==roomNum);
                 return i;
 
         }
