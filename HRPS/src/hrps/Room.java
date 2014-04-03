@@ -11,20 +11,17 @@ import java.io.Serializable;
  * @author Soham G
  */
 public class Room implements Serializable{
-    public static final int SINGLE = 1, DOUBLE = 2, MASTER = 3;
     public static final int VACANT = 1, OCCUPIED = 2, RESERVED = 3, UNDER_MAINTENANCE = 4;
 
 
     private int number;
     private RoomType type;
-    private int bedType;
     private int availability;
 
     public Room(int num, boolean isSmoking, boolean hasWiFi, String facing, int bType, int available)
     {
         number = num;
-        type = new RoomType(isSmoking, hasWiFi, facing);
-        bedType = bType;
+        type = new RoomType(bType, isSmoking, hasWiFi, facing);
         availability = available;
 
     }
@@ -40,35 +37,41 @@ public class Room implements Serializable{
         return availability;
     }
 
+    public void setAvailability(int a)
+    {
+        this.availability = a;
+    }
+
+    public void setBedType(int b)
+    {
+        this.type.setBedType(b);
+    }
+
     public RoomType getRoomType()
     {
         return this.type;
     }
 
-    public int getBedType()
-    {
-        return bedType;
-    }
+
 
     public void showRoom()
     {
-        System.out.println("Room "+number+"\t"+getBedTypeString()+"\tFacing: "+type+"\t"+getAvailabilityString());
+        System.out.print("Room#"+number+"\t");
+        System.out.print(getRoomType().getBedTypeString()+"\t\t");
+        if (type.isSmoking())
+            System.out.print("Smoking\t");
+        else
+            System.out.print("Non-smoking\t");
+
+        if (type.hasWiFi())
+            System.out.print("WiFi\t");
+        else
+            System.out.print("Non-WiFi\t");
+
+        System.out.print("Facing: "+type.getFacing()+"\t"+getAvailabilityString()+"\n");
     }
 
-    public String getBedTypeString()
-    {
-        switch (bedType)
-        {
-            case SINGLE:
-                return "Single";
-            case DOUBLE:
-                return "Double";
-            case MASTER:
-                return "Master";
-            default:
-                return "";
-        }
-    }
+
 
 
     public String getAvailabilityString()
@@ -86,5 +89,19 @@ public class Room implements Serializable{
             default:
                 return "";
         }
+    }
+
+
+
+    void setHasWiFi(boolean hasWiFi) {
+        this.type.setHasWiFi(hasWiFi);
+    }
+
+    void setSmoking(boolean smoking) {
+        this.type.setIsSmoking(smoking);
+    }
+
+    void setFacing(String facing) {
+        this.type.setFacing(facing);
     }
 }

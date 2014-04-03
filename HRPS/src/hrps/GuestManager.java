@@ -33,7 +33,7 @@ public class GuestManager {
         g.showGuest();
     }
 
-    public void editRoom()
+    public void editGuest()
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter passport number of guest: ");
@@ -81,6 +81,8 @@ public class GuestManager {
                     System.err.println("Invalid choice.");
 
             }
+            System.out.println("Guest details updated");
+            g.showGuest();
             saveGuestsDB();
         }
     }

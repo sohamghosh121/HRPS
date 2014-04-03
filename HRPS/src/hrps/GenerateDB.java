@@ -16,9 +16,8 @@ import java.util.Locale;
 public class GenerateDB {
     public static void main(String[] args) {
         //To generate ROOMS
-        Calendar c = Calendar.getInstance();
-        System.out.println(c.get(Calendar.MINUTE));
-        /*
+
+
         int floor = 100, rn = 1, roomNum;
         int availability = Room.VACANT;
         int bedType;
@@ -33,11 +32,11 @@ public class GenerateDB {
             {
                 roomNum = floor+rn;
                 if (rn < 5)
-                    bedType = Room.SINGLE;
+                    bedType = RoomType.SINGLE;
                 else if (rn < 15)
-                    bedType = Room.DOUBLE;
+                    bedType = RoomType.DOUBLE;
                 else
-                    bedType = Room.MASTER;
+                    bedType = RoomType.MASTER;
 
                 r = new Room(roomNum, isSmoking, hasWiFi, facing, bedType, availability );
                 listOfRooms.add(r);
@@ -48,7 +47,8 @@ public class GenerateDB {
             }
         }
     SerializeDB.writeSerializedObject("rooms.dat", listOfRooms);
-    * */
+    SerializeDB.writeSerializedObject("guests.dat", new ArrayList());
+    SerializeDB.writeSerializedObject("reservations.dat", new ArrayList());
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.Calendar;
  * @author Soham G
  */
 public class Reservation implements Serializable {
-    private static final int CONFIRMED = 1, IN_WAITLIST = 2, INQUIRY = 3, CHECKED_IN = 4, EXPIRED = -1;
+    public static final int CONFIRMED = 1, IN_WAITLIST = 2, INQUIRY = 3, CHECKED_IN = 4, EXPIRED = -1;
 
     private Guest guest;
     private Room room;
@@ -76,5 +76,10 @@ public class Reservation implements Serializable {
                 break;
         }
         return s;
+    }
+
+    public void setStatus(int status)
+    {
+        this.status = status;
     }
 }

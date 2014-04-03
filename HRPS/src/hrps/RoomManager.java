@@ -90,7 +90,7 @@ public class RoomManager {
             case "occupancy":
                 return (r.getAvailability() == (int)param);
             case "bedtype":
-                return (r.getBedType() == (int)param);
+                return (r.getRoomType().getBedType() == (int)param);
 
         }
         return false;
@@ -104,10 +104,12 @@ public class RoomManager {
         int bedType = CURmenus.promptBedType();
         //by default add rooms as available
         int availability = Room.VACANT;
-        boolean isSmoking = CURmenus.promptSmoking();
         boolean hasWifi = CURmenus.promptWiFi();
+        boolean isSmoking = CURmenus.promptSmoking();
+
         String facing = CURmenus.promptFacing();
         Room r = new Room(number, isSmoking, hasWifi, facing, bedType, availability);
+        rooms.add(r);
         saveRoomDB();
         System.out.println("Room has been added to database:");
         r.showRoom();
@@ -129,25 +131,42 @@ public class RoomManager {
 
             //show edit menu
             System.out.println("Choose what to edit: ");
-            System.out.println("1. Type");
-            System.out.println("2. Bed Type");
-            System.out.println("3. Availability");
+            System.out.println("1. Smoking");
+            System.out.println("2. Has WiFi");
+            System.out.println("3. Bed Type");
+            System.out.println("4. Availability");
+            System.out.println("5. Facing");
 
             int editChoice = sc.nextInt();
             switch(editChoice)
             {
                 case 1: //edit Type
+                    boolean isSmoking = CURmenus.promptSmoking();
+                    r.setSmoking(isSmoking);
                     break;
                 case 2:
-                    int bedType = CURmenus.promptBedType();
+                    boolean hasWiFi = CURmenus.promptWiFi();
+                    r.setHasWiFi(hasWiFi);
                     break;
                 case 3:
+                    int bedType = CURmenus.promptBedType();
+                    r.setBedType(bedType);
+                    break;
+                case 4:
                     int availability = CURmenus.promptAvailability();
+                    r.setAvailability(availability);
+                    break;
+                case 5:
+                    String facing = CURmenus.promptFacing();
+                    r.setFacing(facing);
                     break;
                 default:
                     System.err.println("Invalid choice.");
             }
+            r.showRoom();
         }
+
+        saveRoomDB();
     }
 
     public void removeRoom()
@@ -184,7 +203,7 @@ public class RoomManager {
         for (i = 0; i < rooms.size(); i++)
         {
             r= (Room)rooms.get(i);
-            if (r.getRoomNumber()==roomNum);
+            if (r.getRoomNumber()==roomNum)
                 return i;
 
         }

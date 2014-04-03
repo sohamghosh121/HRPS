@@ -48,13 +48,13 @@ public class CURmenus {
         switch(choice)
         {
             case 1:
-                bedType = Room.SINGLE;
+                bedType = RoomType.SINGLE;
                 break;
             case 2:
-                bedType = Room.DOUBLE;
+                bedType = RoomType.DOUBLE;
                 break;
             case 3:
-                bedType = Room.MASTER;
+                bedType = RoomType.MASTER;
                 break;
             default:
                 System.err.println("Invalid value entered.");
@@ -67,22 +67,23 @@ public class CURmenus {
     public static boolean promptSmoking()
     {
         System.out.println("Smoking? (Y/N): ");
-        String smoking= sc.nextLine();
-        boolean isSmoking = (smoking.equals("Y")) ? true: false;
+        String smoking= sc.next();
+        System.out.println(smoking);
+        boolean isSmoking = (smoking.equals("Y")||smoking.equals("y")) ? true: false;
         return isSmoking;
     }
 
     public static boolean promptWiFi()
     {
         System.out.println("Has WiFi? (Y/N): ");
-        String wifi= sc.nextLine();
-        boolean hasWifi = (wifi.equals("Y")) ? true: false;
+        String wifi= sc.next();
+        boolean hasWifi = (wifi.equals("Y")||wifi.equals("y")) ? true: false;
         return hasWifi;
     }
 
     static String promptFacing() {
         System.out.println("Facing: ");
-        String facing = sc.nextLine();
+        String facing = sc.next();
         return facing;
     }
 
