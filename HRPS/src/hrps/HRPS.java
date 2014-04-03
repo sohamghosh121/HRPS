@@ -84,6 +84,9 @@ public class HRPS {
                 case 4:
                     break;
                 case 5:
+                    System.out.println("Enter room number: ");
+                    int rn = sc.nextInt();
+                    hotel.roomManager.checkAvailability(rn);
                     break;
                 case 6:
                     break;

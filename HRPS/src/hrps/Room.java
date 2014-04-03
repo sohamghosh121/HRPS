@@ -37,6 +37,7 @@ public class Room implements Serializable{
         return availability;
     }
 
+
     public void setAvailability(int a)
     {
         this.availability = a;

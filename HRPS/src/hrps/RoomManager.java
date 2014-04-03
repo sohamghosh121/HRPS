@@ -196,6 +196,18 @@ public class RoomManager {
         return (findRoom(roomNum)!=-1);
     }
 
+    public  void checkAvailability(int roomNumber)
+    {
+        int index = findRoom(roomNumber);
+        if (index != -1)
+        {
+            Room r = (Room)rooms.get(index);
+            r.getAvailabilityString();
+            System.out.println("Room#"+roomNumber+"\t"+r.getAvailabilityString());
+        }
+        else
+            System.err.println("Room not found.");
+    }
     private static int findRoom(int roomNum)
     {
         int i;
