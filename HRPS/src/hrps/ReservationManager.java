@@ -38,11 +38,18 @@ public class ReservationManager{
             case 1:
                 System.out.println("Enter passport number of guest");
                 search = sc.nextLine();
+                g = GuestManager.findGuest(search);
                 break;
             case 2:
-                System.out.println("");
+                System.out.println("Enter Reservation ID");
                 search = sc.nextLine();
+                
                 break;
+            case 3: 
+                System.out.println("Enter Room Number:");
+                lp=sc.nextInt();
+                RoomManager.roomExists(lp);
+            default: System.err.println("Please enter a valid choice(1-3):");
         }
 
         int res_id = findReservation();
@@ -52,13 +59,18 @@ public class ReservationManager{
 
     }
 
-    public int findReservation()
-    {
+    public int findReservation(int roomNo)
+    {int R= new 
         Reservation r = new Reservation();
 
         System.out.println("Reservation found:");
         r.printReceipt();
         return 1;
+    }
+    
+    public void addReservation(Reservation r)
+    {
+        reservations.add(r);
     }
 
     private void saveReservationsDB()//private because we don't want other objects to affect db
