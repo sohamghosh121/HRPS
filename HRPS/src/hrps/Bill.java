@@ -12,7 +12,14 @@ import java.util.ArrayList;
  * @author Soham G
  */
 public class Bill implements Serializable{
+    public static final double TAX_RATE = 0.07;
+    private int roomNo;
     ArrayList charges = new ArrayList();
+
+    public Bill(int rn)
+    {
+        roomNo = rn;
+    }
     public void add(Charge c)
     {
         charges.add(c);
@@ -23,14 +30,22 @@ public class Bill implements Serializable{
         System.out.println("-------------------------------------------------");
         System.out.println("\tBILL");
         System.out.println("-------------------------------------------------");
+        double tot = 0.0;
         Charge c;
         int numCharges = charges.size(), i;
         for (i=0; i<numCharges; i++)
         {
             c = (Charge)charges.get(i);
             c.printCharge();
+            tot += c.getAmount();
         }
+        System.out.println("Total amount: \t"+tot);
         System.out.println("-------------------------------------------------");
+    }
+
+    public int getRoomNo()
+    {
+        return roomNo;
     }
 
 }

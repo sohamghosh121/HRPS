@@ -34,13 +34,10 @@ public class Reservation implements Serializable {
         this.creditCardNo = ccNo;
         this.nAdults = nAdults;
         this.nChildren = nChildren;
+        this.status = CONFIRMED;
         creationDate = Calendar.getInstance();
         expiryDate = (Calendar)creationDate.clone();
         expiryDate.set(Calendar.HOUR, creationDate.get(Calendar.HOUR)+1);
-        bill = null;
-
-
-
     }
 
 
@@ -97,6 +94,8 @@ public class Reservation implements Serializable {
             case EXPIRED:
                 s="Expired";
                 break;
+            default:
+                s = "NO IDEA";
         }
         return s;
     }
@@ -116,7 +115,6 @@ public class Reservation implements Serializable {
         status = this.CHECKED_IN;
         checkInDate = Calendar.getInstance();
         System.out.println("Check In Successful!");
-        bill = new Bill();
     }
 
     public void checkout(){

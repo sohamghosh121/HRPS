@@ -16,21 +16,18 @@ import java.util.Scanner;
 public class ReservationManager{
     private List reservations = (ArrayList)SerializeDB.readSerializedObject("reservations.dat");
 
-    public void checkIn()
+    public void checkIn(int rn)
     {
-        Scanner sc = new Scanner(System.in);
-        Guest g;
-        int choice, rn;
-        String search;
-        System.out.println("Enter Room Number:");
-        rn=sc.nextInt();
         int res_id = findReservation(rn);
+        if (res_id == -1)
+            return;
         Reservation r = (Reservation)reservations.get(res_id);
-        if (r.checkExpired())
+        if (!r.checkExpired())
+        {
             r.checkIn();
+        }
+        saveReservationsDB();
     }
-
-
 
     public int findReservation(int roomNo)
     {
@@ -42,7 +39,7 @@ public class ReservationManager{
             if (r.getRoomNumber()== roomNo)
                 return i;
         }
-          System.err.println("No reservation found.");
+          System.err.println("No existing reservation found.");
           return -1;
     }
 
@@ -114,75 +111,18 @@ public class ReservationManager{
         saveReservationsDB();
     }
 
-    public void addCharges()
-    {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter room number: ");
-        int rn = sc.nextInt(), type;
-        int index = findReservation(rn);
 
-        if (index != -1)
-        {
-            Reservation r = (Reservation)reservations.get(index);
-            //reservation exists
-            if (r.getStatus()==Reservation.CHECKED_IN)
-            {
-
-                System.out.println("Enter description: ");
-                String des = sc.next();
-
-                System.out.println("Choose type of charges: ");
-                System.out.println("\t1. Room charges");
-                System.out.println("\t2. Room service");
-                System.out.println("\t3. Food charges");
-                System.out.println("\t4. Transportation charges");
-                System.out.println("\t5. Tax");
-                int choice = sc.nextInt();
-
-                switch (choice)
-                {
-                    case 1: type = Charge.ROOM_CHARGE; break;
-                    case 2: type = Charge.ROOM_SERVICE; break;
-                    case 3: type = Charge.FOOD_CHARGE; break;
-                    case 4: type = Charge.TRANSPORT_CHARGE; break;
-                    case 5: type = Charge.TAX; break;
-                    default: type = 0; System.err.println("Invalid choice.");
-                }
-
-                System.out.println("Enter amount: ");
-                double amt = sc.nextDouble();
-
-                double discount;
-                System.out.println("Discount (Y/N");
-                String dis = sc.next();
-                if (dis.toLowerCase().equals("y"))
-                {
-                    System.out.println("Enter discount: ");
-                    discount = sc.nextDouble();
-                }
-                else
-                    discount = 0.0;
-
-                boolean isWeekEnd;
-                Calendar now = Calendar.getInstance();
-                if ((now.get(Calendar.DAY_OF_WEEK)%7)<=1)
-                    isWeekEnd = true;
-                else
-                    isWeekEnd = false;
-
-
-                Charge c = new Charge(des, amt, type, isWeekEnd, discount);
-                r.addCharges(c);
-            }
-
-        }
-    }
 
     public void showReservations()
     {
         int i;
         Reservation r;
-        System.out.println("Reservations:");
+        System.out.println("\nReservations:\n-----------------------------------------");
+        if (reservations.size() == 0)
+        {
+            System.out.println("No results found.");
+            return;
+        }
         for (i= 0; i<reservations.size();i++)
         {
             r = (Reservation)reservations.get(i);

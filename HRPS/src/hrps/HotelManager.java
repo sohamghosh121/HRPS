@@ -18,7 +18,7 @@ public class HotelManager {
     protected RoomManager roomManager = new RoomManager();;
     protected ReservationManager reservationManager = new ReservationManager();
     protected GuestManager guestManager = new GuestManager();
-
+    protected BillManager billManager = new BillManager();
 
 
     public void makeReservation()
@@ -38,6 +38,8 @@ public class HotelManager {
             System.out.println("Enter Passport Number of guest: ");
             String pp = sc.next();
             g = guestManager.findGuest(pp);
+            if (g.equals(null))
+                return;
         }
         System.out.println("Reservation for");
         g.showGuest();
@@ -68,6 +70,18 @@ public class HotelManager {
 
     }
 
+    public void checkIn()
+    {
+         Scanner sc = new Scanner(System.in);
+        Guest g;
+        int choice, rn;
+        String search;
+        System.out.println("Enter Room Number:");
+        rn=sc.nextInt();
+        reservationManager.checkIn(rn);
+        billManager.createNewBill(rn);
+    }
+
     public void checkOut()
     {
         int rr,p;
@@ -75,13 +89,80 @@ public class HotelManager {
         Scanner sc= new Scanner(System.in);
         System.out.println("Enter room number to check out:");
         rr=sc.nextInt();
-        reservationManager.deleteReservation(rr);
         Reservation r = reservationManager.getReservation(rr);
+        r.showReservation();
+        billManager.showBill(rr);
+        reservationManager.deleteReservation(rr);
+        billManager.removeBill(rr);
         roomManager.makeAvailable(rr);
-        r.getBill().printBill();
-    }
-
 
     }
+
+    public void addCharges()
+    {
+                Scanner sc = new Scanner(System.in);
+        System.out.println("Enter room number: ");
+        int rn = sc.nextInt(), type;
+        Reservation r = reservationManager.getReservation(rn);
+        if (r.equals(null))
+            return;
+        //reservation exists
+        if (r.getStatus()==Reservation.CHECKED_IN)
+        {
+
+            System.out.println("Enter description: ");
+            String des = sc.next();
+
+            System.out.println("Choose type of charges: ");
+            System.out.println("\t1. Room charges");
+            System.out.println("\t2. Room service");
+            System.out.println("\t3. Food charges");
+            System.out.println("\t4. Transportation charges");
+            //System.out.println("\t5. Tax");
+            int choice = sc.nextInt();
+
+            switch (choice)
+            {
+                case 1: type = Charge.ROOM_CHARGE; break;
+                case 2: type = Charge.ROOM_SERVICE; break;
+                case 3: type = Charge.FOOD_CHARGE; break;
+                case 4: type = Charge.TRANSPORT_CHARGE; break;
+                //case 5: type = Charge.TAX; break;
+                default: type = 0; System.err.println("Invalid choice.");
+            }
+
+            System.out.println("Enter amount: ");
+            double amt = sc.nextDouble();
+
+            double discount;
+            System.out.println("Discount (Y/N");
+            String dis = sc.next();
+            if (dis.toLowerCase().equals("y"))
+            {
+                System.out.println("Enter discount: ");
+                discount = sc.nextDouble();
+            }
+            else
+                discount = 0.0;
+
+            boolean isWeekEnd;
+            Calendar now = Calendar.getInstance();
+            if ((now.get(Calendar.DAY_OF_WEEK)%7)<=1)
+                isWeekEnd = true;
+            else
+                isWeekEnd = false;
+
+
+            Charge c = new Charge(des, amt, type, isWeekEnd, discount);
+            Charge c_tax = new Charge("Tax: "+des, amt*Bill.TAX_RATE, Charge.TAX, isWeekEnd, discount);
+            billManager.addCharges(c, rn);
+            billManager.addCharges(c_tax, rn);
+        }
+
+    }
+}
+
+
+
 
 

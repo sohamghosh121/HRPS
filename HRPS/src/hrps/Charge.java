@@ -31,16 +31,20 @@ public class Charge implements Serializable{
         timeStamp = Calendar.getInstance();
     }
 
+    public double getAmount()
+    {
+        return amount;
+    }
     public void printCharge()
     {
         double discounted_amount = (100-discount)/100*amount;
-        System.out.println(chargeName+"\t"+discounted_amount+"\t"+returnChargeType(type)+"\t"+timeStamp.getTime().toString());
+        System.out.print(chargeName+"\t\t"+discounted_amount+"\t"+returnChargeType(type)+"\t"+timeStamp.getTime().toString());
         if (isWeekEnd)
-            System.out.print("Weekend");
+            System.out.print("\tWeekend");
         else
-            System.out.print("Non-weekend");
+            System.out.print("\tNon-weekend");
         if (discount != 0.0)
-            System.out.print("Discount: "+(discount*100));
+            System.out.print("\tDiscount: "+(discount*100));
 
         System.out.println(" ");
     }

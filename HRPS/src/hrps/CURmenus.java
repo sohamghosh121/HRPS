@@ -135,12 +135,12 @@ public class CURmenus {
 
     static String promptName() {
         System.out.println("Enter name: ");
-        return sc.next();
+        return sc.nextLine();
     }
 
     static String promptAddress() {
         System.out.println("Enter address: ");
-        return sc.next();
+        return sc.nextLine();
     }
 
     static int promptGender() {

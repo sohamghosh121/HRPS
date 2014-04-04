@@ -86,9 +86,9 @@ public class Room implements Serializable{
             case RESERVED:
                 return "RESERVED";
             case UNDER_MAINTENANCE:
-                return "RESERVED";
+                return "UNDER MAINTENANCE";
             default:
-                return "";
+                return "ERROR";
         }
     }
 

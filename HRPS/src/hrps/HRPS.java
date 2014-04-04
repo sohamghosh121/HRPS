@@ -15,7 +15,7 @@ public class HRPS {
 
     public static void showMenu()
     {
-
+        System.out.println("\n\n");
         System.out.println("1. Create/Update/Remove rooms details");
         System.out.println("2. Create/Update/Remove guests detail");
         System.out.println("3. Create/Update/Remove reservation");
@@ -24,9 +24,11 @@ public class HRPS {
         System.out.println("6. Check-in");
         System.out.println("7. Check-out and print bill invoice");
         System.out.println("8. Print Room Occupancy report (by room type, by floor level, etc)");
-        System.out.println("9. Show all reservations");
-        System.out.println("10. Show all guests");
-        System.out.println("11. Exit");
+        System.out.println("9. Add charges");
+        System.out.println("10. Show all reservations");
+        System.out.println("11. Show all guests");
+        System.out.println("12. Print bill");
+        System.out.println("13. Exit");
         System.out.print("Enter choice: ");
     }
 
@@ -48,11 +50,12 @@ public class HRPS {
 
         int choice = sc.nextInt(), curchoice;
 
-        while (choice != 11)
+        while (choice != 13)
         {
             switch (choice)
             {
                 case 1:
+                {
                     CURmenus.showCURmenu("room");
                     curchoice = sc.nextInt();
                     switch(curchoice)
@@ -69,7 +72,9 @@ public class HRPS {
 
                     }
                     break;
+                }
                 case 2:
+                {
                     CURmenus.showCURmenu("guest");
                     curchoice = sc.nextInt();
                     switch (curchoice)
@@ -88,7 +93,9 @@ public class HRPS {
                             System.err.println("Invalid choice.");
                     }
                     break;
+                }
                 case 3:
+                {
                     CURmenus.showCURmenu("reservation");
                     curchoice = sc.nextInt();
                     switch (curchoice)
@@ -106,28 +113,54 @@ public class HRPS {
                             System.err.println("Invalid choice.");
                     }
                     break;
+                }
+
                 case 4:
                     break;
                 case 5:
+                {
                     System.out.println("Enter room number: ");
                     int rn = sc.nextInt();
                     hotel.roomManager.checkAvailability(rn);
                     break;
+                }
                 case 6:
-                    hotel.reservationManager.checkIn();
+                {
+                    hotel.checkIn();
                     break;
+                }
                 case 7:
+                {
                     hotel.checkOut();
                     break;
+                }
                 case 8:
+                {
                     hotel.roomManager.roomOccupancyReport();
                     break;
+                }
                 case 9:
+                {
+                    hotel.addCharges();
+                    break;
+                }
+                case 10:
+                {
                     hotel.reservationManager.showReservations();
                     break;
-                case 10:
+                }
+                case 11:
+                {
                     hotel.guestManager.showGuests();
                     break;
+                }
+                case 12:
+                {
+                    System.out.println("Enter room number: ");
+                    int rn = sc.nextInt();
+                    hotel.billManager.showBill(rn);
+                    break;
+                }
                 default:
                     System.err.println("INVALID INPUT. Enter again.");
 

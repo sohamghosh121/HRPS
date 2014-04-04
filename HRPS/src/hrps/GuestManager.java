@@ -131,14 +131,22 @@ public class GuestManager {
 
     public static Guest findGuest(String ppNum)
     {
-        return (Guest)guests.get(findGuestIndex(ppNum));
+        int index = findGuestIndex(ppNum);
+        if (index == -1)
+            return null;
+        return (Guest)guests.get(index);
     }
 
     public void showGuests()
     {
         int i;
         Guest g;
-        System.out.println("Guests:");
+        System.out.println("\nGuests:\n---------------------------------------------");
+        if (guests.size() == 0)
+        {
+            System.out.println("No results found.");
+            return;
+        }
         for (i= 0; i<guests.size();i++)
         {
             g = (Guest)guests.get(i);

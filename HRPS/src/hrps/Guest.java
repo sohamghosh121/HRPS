@@ -24,7 +24,7 @@ public class Guest implements Serializable{
 
     public Guest()
     {
-        
+
     }
     public Guest (String n, String a, int g, String pp, String nat, String c)
     {
@@ -39,7 +39,7 @@ public class Guest implements Serializable{
 
     public void showGuest()
     {
-        System.out.println("Name: "+name+"\tContact: "+contact);
+        System.out.println("Name: "+name+"\tPassport: "+passportNumber+"\t\tContact: "+contact);
     }
 
 

@@ -49,6 +49,7 @@ public class GenerateDB {
     SerializeDB.writeSerializedObject("rooms.dat", listOfRooms);
     SerializeDB.writeSerializedObject("guests.dat", new ArrayList());
     SerializeDB.writeSerializedObject("reservations.dat", new ArrayList());
+    SerializeDB.writeSerializedObject("bills.dat", new ArrayList());
     }
 
 }
