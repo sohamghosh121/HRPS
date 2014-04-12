@@ -36,7 +36,7 @@ public class ReservationManager{
         for (i=0; i<reservations.size(); i++)
         {
             r = (Reservation)reservations.get(i);
-            if (r.getRoomNumber()== roomNo)
+            if (r.getRoomNumber()== roomNo && r.getStatus()==Reservation.CONFIRMED)
                 return i;
         }
           System.err.println("No existing reservation found.");

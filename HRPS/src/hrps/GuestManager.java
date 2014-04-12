@@ -29,8 +29,9 @@ public class GuestManager {
         Guest g = new Guest(name, add, gender, pp, nat, contact);
         guests.add(g);
         saveGuestsDB();
-        System.out.println("Guest has been added to database:");
+        System.out.println("\nGuest has been added to database:");
         g.showGuest();
+        System.out.println("---------------------------------\n");
         return g;
     }
 

@@ -40,6 +40,23 @@ public class Reservation implements Serializable {
         expiryDate.set(Calendar.HOUR, creationDate.get(Calendar.HOUR)+1);
     }
 
+    public Reservation (Room r, Guest g, String ccNo, int nAdults, int nChildren, boolean waitlist)
+    {
+
+        this.room = r;
+        this.guest = g;
+        this.creditCardNo = ccNo;
+        this.nAdults = nAdults;
+        this.nChildren = nChildren;
+        if (waitlist)
+            this.status = IN_WAITLIST;
+        else
+            this.status = CONFIRMED;
+        creationDate = Calendar.getInstance();
+        expiryDate = (Calendar)creationDate.clone();
+        expiryDate.set(Calendar.HOUR, creationDate.get(Calendar.HOUR)+1);
+    }
+
 
     public void printReceipt()
     {

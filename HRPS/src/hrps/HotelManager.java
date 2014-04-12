@@ -19,7 +19,7 @@ public class HotelManager {
     protected ReservationManager reservationManager = new ReservationManager();
     protected GuestManager guestManager = new GuestManager();
     protected BillManager billManager = new BillManager();
-
+    static Scanner sc = new Scanner(System.in);
 
     public void makeReservation()
     {
@@ -65,8 +65,32 @@ public class HotelManager {
             reservationManager.addReservation(newReservation);
             newReservation.printReservationReceipt();
         }
+        else
+        {
+            System.err.println("Exisiting reservation already found at this room. Proceed (Y/N)?");
+            input = sc.next();
+            if (input.toLowerCase().equals("y"))
+            {
+                System.out.println("Enter credit card no: ");
+                String cc = sc.next();
+
+                System.out.println("Enter number of adults: ");
+                int nAdults = sc.nextInt();
+
+                System.out.println("Enter number of children: ");
+                int nChildren = sc.nextInt();
 
 
+                Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren, true);
+                reservationManager.addReservation(newReservation);
+                newReservation.printReservationReceipt();
+            }
+            else if (input.toLowerCase().equals("n"))
+            {
+                System.out.println("Reservation cancelled.");
+            }
+
+        }
 
     }
 
@@ -90,11 +114,15 @@ public class HotelManager {
         System.out.println("Enter room number to check out:");
         rr=sc.nextInt();
         Reservation r = reservationManager.getReservation(rr);
-        r.showReservation();
-        billManager.showBill(rr);
-        reservationManager.deleteReservation(rr);
-        billManager.removeBill(rr);
-        roomManager.makeAvailable(rr);
+        if (r != null)
+        {
+            r.showReservation();
+            billManager.showBill(rr);
+            reservationManager.deleteReservation(rr);
+            billManager.removeBill(rr);
+            roomManager.makeAvailable(rr);
+        }
+
 
     }
 
