@@ -46,10 +46,10 @@ public class GenerateDB {
 
             }
         }
-    SerializeDB.writeSerializedObject("rooms.dat", listOfRooms);
-    SerializeDB.writeSerializedObject("guests.dat", new ArrayList());
-    SerializeDB.writeSerializedObject("reservations.dat", new ArrayList());
-    SerializeDB.writeSerializedObject("bills.dat", new ArrayList());
+    DBoperations.writeSerializedObject("rooms.dat", listOfRooms);
+    DBoperations.writeSerializedObject("guests.dat", new ArrayList());
+    DBoperations.writeSerializedObject("reservations.dat", new ArrayList());
+    DBoperations.writeSerializedObject("bills.dat", new ArrayList());
     }
 
 }

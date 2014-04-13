@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class RoomManager {
 
-    private static ArrayList rooms =  (ArrayList)SerializeDB.readSerializedObject("rooms.dat");
+    private static ArrayList rooms =  (ArrayList)DBoperations.readSerializedObject("rooms.dat");
 
 
     //DONE.
@@ -245,7 +245,7 @@ public class RoomManager {
 
     private void saveRoomDB()//private because we don't want other objects to affect db
     {
-        SerializeDB.writeSerializedObject("rooms.dat", rooms);
+        DBoperations.writeSerializedObject("rooms.dat", rooms);
     }
 
     void makeAvailable(int rr) {

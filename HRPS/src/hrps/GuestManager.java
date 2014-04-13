@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author Soham G
  */
 public class GuestManager {
-    private static ArrayList guests = (ArrayList)SerializeDB.readSerializedObject("guests.dat");
+    private static ArrayList guests = (ArrayList)DBoperations.readSerializedObject("guests.dat");
 
 
     public Guest createGuest()
@@ -162,7 +162,7 @@ public class GuestManager {
 
     private void saveGuestsDB()//private because we don't want other objects to affect db
     {
-        SerializeDB.writeSerializedObject("guests.dat", guests);
+        DBoperations.writeSerializedObject("guests.dat", guests);
     }
 
 }

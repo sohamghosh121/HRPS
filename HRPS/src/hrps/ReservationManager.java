@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author Soham G
  */
 public class ReservationManager {
-    private List reservations = (ArrayList)SerializeDB.readSerializedObject("reservations.dat");
+    private List reservations = (ArrayList)DBoperations.readSerializedObject("reservations.dat");
 
     public void checkIn(int rn)
     {
@@ -91,8 +91,8 @@ public class ReservationManager {
         }
         catch (ReservationNotFoundException ex)
         {
+            return false;
         }
-        return false;
     }
 
 
@@ -167,6 +167,6 @@ public class ReservationManager {
 
     private void saveReservationsDB()//private because we don't want other objects to affect db
     {
-        SerializeDB.writeSerializedObject("reservations.dat", reservations);
+        DBoperations.writeSerializedObject("reservations.dat", reservations);
     }
 }

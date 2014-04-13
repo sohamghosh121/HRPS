@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Soham G
  */
 public class BillManager {
-    private static ArrayList bills =  (ArrayList)SerializeDB.readSerializedObject("bills.dat");
+    private static ArrayList bills =  (ArrayList)DBoperations.readSerializedObject("bills.dat");
 
 
 
@@ -73,7 +73,7 @@ public class BillManager {
 
     private void saveBillsDB()//private because we don't want other objects to affect db
     {
-        SerializeDB.writeSerializedObject("bills.dat", bills);
+        DBoperations.writeSerializedObject("bills.dat", bills);
     }
 
 }

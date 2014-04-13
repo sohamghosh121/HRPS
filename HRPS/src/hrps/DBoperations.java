@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 // Note : When structure of the Object type (the class file) in the list changed
 // the Serialized file may fail.
-public class SerializeDB
+public class DBoperations
 {
 	public static List readSerializedObject(String filename) {
 		List pDetails = null;
@@ -51,4 +51,5 @@ public class SerializeDB
 			ex.printStackTrace();
 		}
 	}
+        
 }
