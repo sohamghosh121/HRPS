@@ -16,14 +16,14 @@ import java.util.logging.Logger;
  * @author Soham G
  */
 public class ReservationManager {
-    private List reservations = (ArrayList)DBoperations.readSerializedObject("reservations.dat");
+    private List<Reservation> reservations = (ArrayList)DBoperations.readSerializedObject("reservations.dat");
 
     public void checkIn(int rn)
     {
         try
         {
             int res_id = findReservation(rn);
-            Reservation r = (Reservation)reservations.get(res_id);
+            Reservation r = reservations.get(res_id);
             if (!r.checkExpired())
             {
                 r.checkIn();
@@ -40,7 +40,7 @@ public class ReservationManager {
     {
         try {
             int res_id = findReservation(rn);
-            Reservation r = (Reservation)reservations.get(res_id);
+            Reservation r = reservations.get(res_id);
             r.setStatus(Reservation.CHECKED_OUT);
             saveReservationsDB();
         } catch (ReservationNotFoundException ex) {
@@ -54,7 +54,7 @@ public class ReservationManager {
         Reservation r;
         for (i=0; i<reservations.size(); i++)
         {
-            r = (Reservation)reservations.get(i);
+            r = reservations.get(i);
             if (r.getRoomNumber()== roomNo && r.getStatus()==Reservation.CONFIRMED)
                 return i;
         }
@@ -69,7 +69,7 @@ public class ReservationManager {
             if (index != -1)//if room is found
             {
              System.out.println("Reservation found:");
-             return (Reservation)reservations.get(index);
+             return reservations.get(index);
             }
         }
         catch (ReservationNotFoundException ex)
@@ -86,7 +86,7 @@ public class ReservationManager {
         {
             int index = findReservation(roomNo);
             Reservation r;
-            r = (Reservation)reservations.get(index);
+            r = reservations.get(index);
             return !r.checkExpired();//return true if reservation is not expired (ie a valid reservation exists)
         }
         catch (ReservationNotFoundException ex)
@@ -106,7 +106,7 @@ public class ReservationManager {
         {
             res_id = findReservation(roomNo);
             Reservation res;
-            res = (Reservation)reservations.get(res_id);
+            res = reservations.get(res_id);
             //TODO: code for editing reservation
         }
         catch (ReservationNotFoundException ex)
@@ -160,7 +160,7 @@ public class ReservationManager {
         }
         for (i= 0; i<reservations.size();i++)
         {
-            r = (Reservation)reservations.get(i);
+            r = reservations.get(i);
             r.showReservation();
         }
     }

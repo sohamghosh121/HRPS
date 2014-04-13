@@ -17,10 +17,11 @@ import java.util.logging.Logger;
  */
 public class HotelManager {
 
-    protected RoomManager roomManager = new RoomManager();;
+    protected RoomManager roomManager = new RoomManager();
     protected ReservationManager reservationManager = new ReservationManager();
     protected GuestManager guestManager = new GuestManager();
     protected BillManager billManager = new BillManager();
+
     static Scanner sc = new Scanner(System.in);
 
     public void makeReservation()

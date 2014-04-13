@@ -4,14 +4,14 @@
  */
 package hrps;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Soham G
  */
 public class BillManager {
-    private static ArrayList bills =  (ArrayList)DBoperations.readSerializedObject("bills.dat");
+    private static List<Bill> bills =  (List)DBoperations.readSerializedObject("bills.dat");
 
 
 
@@ -30,7 +30,7 @@ public class BillManager {
         Bill b;
         if (index != -1)
         {
-            b = (Bill)bills.get(index);
+            b = bills.get(index);
             b.add(c);
         }
     }
@@ -41,7 +41,7 @@ public class BillManager {
         Bill b;
         if (index != -1)
         {
-            b = (Bill)bills.get(index);
+            b = bills.get(index);
             b.printBill();
         }
         saveBillsDB();
@@ -63,7 +63,7 @@ public class BillManager {
         Bill b;
         for (i = 0; i < bills.size(); i++)
         {
-            b = (Bill)bills.get(i);
+            b = bills.get(i);
             if (b.getRoomNo()== roomNo)
                 return i;
         }

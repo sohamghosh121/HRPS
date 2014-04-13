@@ -4,11 +4,8 @@
  */
 package hrps;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -16,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class RoomManager {
 
-    private static ArrayList rooms =  (ArrayList)DBoperations.readSerializedObject("rooms.dat");
+    private static List<Room> rooms =  (List)DBoperations.readSerializedObject("rooms.dat");
 
 
     //DONE.
@@ -75,7 +72,7 @@ public class RoomManager {
         System.out.println("Room Occupancy:");
         for (i= 0; i<rooms.size();i++)
         {
-            r = (Room)rooms.get(i);
+            r = rooms.get(i);
             if (searchByCriteria(param, criteria, r))
                 r.showRoom();
         }
@@ -129,7 +126,7 @@ public class RoomManager {
             if (roomIndex != -1)//if room is found
             {
                 //look for room
-                Room r = (Room)rooms.get(roomIndex);
+                Room r = rooms.get(roomIndex);
                 System.out.println("Room found:");
                 r.showRoom();
 
@@ -207,7 +204,7 @@ public class RoomManager {
     {
         try {
             int index = findRoom(roomNumber);
-            Room r = (Room)rooms.get(index);
+            Room r = rooms.get(index);
             r.getAvailabilityString();
             System.out.println("Room#"+roomNumber+"\t"+r.getAvailabilityString());
         } catch (RoomNotFoundException ex) {
@@ -221,7 +218,7 @@ public class RoomManager {
         Room r;
         for (i = 0; i < rooms.size(); i++)
         {
-            r= (Room)rooms.get(i);
+            r= rooms.get(i);
             if (r.getRoomNumber()==roomNum)
                 return i;
 
@@ -236,7 +233,7 @@ public class RoomManager {
             System.out.println("Enter room number: ");
             int rn = sc.nextInt(), index;
             index = findRoom(rn);
-            return (Room)rooms.get(index);
+            return rooms.get(index);
         } catch (RoomNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
@@ -251,7 +248,7 @@ public class RoomManager {
     void makeAvailable(int rr) {
         try {
             int index = findRoom(rr);
-            Room r = (Room)rooms.get(index);
+            Room r = rooms.get(index);
             r.setAvailability(Room.VACANT);
             saveRoomDB();
         } catch (RoomNotFoundException ex) {

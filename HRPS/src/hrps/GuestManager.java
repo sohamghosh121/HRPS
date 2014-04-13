@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author Soham G
  */
 public class GuestManager {
-    private static ArrayList guests = (ArrayList)DBoperations.readSerializedObject("guests.dat");
+    private static List<Guest> guests = (ArrayList)DBoperations.readSerializedObject("guests.dat");
 
 
     public Guest createGuest()
@@ -44,7 +44,7 @@ public class GuestManager {
             System.out.println("Enter passport number of guest: ");
             String passportNumber = sc.nextLine();
             int guestIndex = findGuestIndex(passportNumber);
-                Guest g = (Guest)guests.get(guestIndex);
+                Guest g = guests.get(guestIndex);
                 System.out.println("Guest found:");
                 g.showGuest();
 
@@ -99,7 +99,7 @@ public class GuestManager {
             System.out.println("Enter passport number of guest to remove: ");
             String ppNum= sc.nextLine();
             int index = findGuestIndex(ppNum);
-            Guest g = (Guest)guests.get(index);
+            Guest g = guests.get(index);
             g.showGuest();
             guests.remove(index);
             System.out.println("Guest has been removed.");
@@ -127,7 +127,7 @@ public class GuestManager {
         Guest g;
         for (i = 0; i < guests.size(); i++)
         {
-            g = (Guest)guests.get(i);
+            g = guests.get(i);
             if (g.getPassportNumber().equals(ppNum))
                 return i;
 
@@ -139,7 +139,7 @@ public class GuestManager {
     public static Guest findGuest(String ppNum) throws GuestNotFoundException
     {
         int index = findGuestIndex(ppNum);
-        return (Guest)guests.get(index);
+        return guests.get(index);
     }
 
     public void showGuests()
@@ -154,7 +154,7 @@ public class GuestManager {
         }
         for (i= 0; i<guests.size();i++)
         {
-            g = (Guest)guests.get(i);
+            g = guests.get(i);
             g.showGuest();
         }
     }
