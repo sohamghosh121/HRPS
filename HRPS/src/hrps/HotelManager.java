@@ -118,7 +118,8 @@ public class HotelManager {
         {
             r.showReservation();
             billManager.showBill(rr);
-            reservationManager.deleteReservation(rr);
+            //reservationManager.deleteReservation(rr);
+            reservationManager.checkOut(rr);
             billManager.removeBill(rr);
             roomManager.makeAvailable(rr);
         }

@@ -8,28 +8,47 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Soham G
  */
-public class ReservationManager{
+public class ReservationManager {
     private List reservations = (ArrayList)SerializeDB.readSerializedObject("reservations.dat");
 
     public void checkIn(int rn)
     {
-        int res_id = findReservation(rn);
-        if (res_id == -1)
-            return;
-        Reservation r = (Reservation)reservations.get(res_id);
-        if (!r.checkExpired())
+        try
         {
-            r.checkIn();
+            int res_id = findReservation(rn);
+            Reservation r = (Reservation)reservations.get(res_id);
+            if (!r.checkExpired())
+            {
+                r.checkIn();
+            }
+            saveReservationsDB();
         }
-        saveReservationsDB();
+        catch (ReservationNotFoundException ex)
+        {
+            System.err.println(ex.getMessage());
+        }
     }
 
-    public int findReservation(int roomNo)
+    public void checkOut(int rn)
+    {
+        try {
+            int res_id = findReservation(rn);
+            Reservation r = (Reservation)reservations.get(res_id);
+            r.setStatus(Reservation.CHECKED_OUT);
+            saveReservationsDB();
+        } catch (ReservationNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public int findReservation(int roomNo) throws ReservationNotFoundException
     {
         int i;
         Reservation r;
@@ -39,32 +58,42 @@ public class ReservationManager{
             if (r.getRoomNumber()== roomNo && r.getStatus()==Reservation.CONFIRMED)
                 return i;
         }
-          System.err.println("No existing reservation found.");
-          return -1;
+          throw new ReservationNotFoundException();
     }
 
     public Reservation getReservation(int roomNo)
     {
-        int index = findReservation(roomNo);
-        if (index != -1)//if room is found
+        try
         {
-         System.out.println("Reservation found:");
-         return (Reservation)reservations.get(index);
+            int index = findReservation(roomNo);
+            if (index != -1)//if room is found
+            {
+             System.out.println("Reservation found:");
+             return (Reservation)reservations.get(index);
+            }
         }
-        else return null;
+        catch (ReservationNotFoundException ex)
+        {
+            System.err.println(ex.getMessage());
+
+        }
+        return null;
     }
 
     public boolean existsReservation(int roomNo)
     {
-        int index = findReservation(roomNo);
-        Reservation r;
-        if (index != -1)
+        try
         {
+            int index = findReservation(roomNo);
+            Reservation r;
             r = (Reservation)reservations.get(index);
             return !r.checkExpired();//return true if reservation is not expired (ie a valid reservation exists)
         }
-        else
-            return false;
+        catch (ReservationNotFoundException ex)
+        {
+            System.err.println(ex.getMessage());
+        }
+        return false;
     }
 
 
@@ -73,14 +102,19 @@ public class ReservationManager{
         System.out.print("Enter room number: ");
         Scanner sc = new Scanner(System.in);
         int roomNo = sc.nextInt();
-        int res_id = findReservation(roomNo);
-        Reservation res;
-        if (res_id != -1)
+        int res_id;
+        try
         {
+            res_id = findReservation(roomNo);
+            Reservation res;
             res = (Reservation)reservations.get(res_id);
+            //TODO: code for editing reservation
         }
-        else
-            System.err.println("No reservation found for room# "+roomNo);
+        catch (ReservationNotFoundException ex)
+        {
+           System.err.println(ex.getMessage());
+        }
+
     }
 
     public void deleteReservation()
@@ -93,16 +127,18 @@ public class ReservationManager{
 
     public void deleteReservation(int roomNum)
     {
-        int res_id = findReservation(roomNum);
-        Reservation res;
-        if (res_id != -1)
+        try
         {
+            int res_id = findReservation(roomNum);
+            Reservation res;
             reservations.remove(res_id);
             System.out.println("Reservation for room#"+roomNum+" removed.");
             saveReservationsDB();
         }
-        else
-            System.err.println("No reservations found for room#"+roomNum);
+        catch (ReservationNotFoundException ex)
+        {
+            System.err.println(ex.getMessage());
+        }
     }
 
     public void addReservation(Reservation r)
