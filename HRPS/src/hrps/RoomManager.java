@@ -7,6 +7,8 @@ package hrps;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -117,75 +119,76 @@ public class RoomManager {
 
     public void editRoom()
     {
-        //TODO: edit room logic
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter room number to edit: ");
-        int roomNum = sc.nextInt();
-        int roomIndex = findRoom(roomNum);
-        if (roomIndex != -1)//if room is found
-        {
-            //look for room
-            Room r = (Room)rooms.get(roomIndex);
-            System.out.println("Room found:");
-            r.showRoom();
+        try {
+            //TODO: edit room logic
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter room number to edit: ");
+            int roomNum = sc.nextInt();
 
-            //show edit menu
-            System.out.println("Choose what to edit: ");
-            System.out.println("1. Smoking");
-            System.out.println("2. Has WiFi");
-            System.out.println("3. Bed Type");
-            System.out.println("4. Availability");
-            System.out.println("5. Facing");
-
-            int editChoice = sc.nextInt();
-            switch(editChoice)
+            int roomIndex = findRoom(roomNum);
+            if (roomIndex != -1)//if room is found
             {
-                case 1: //edit Type
-                    boolean isSmoking = CURmenus.promptSmoking();
-                    r.setSmoking(isSmoking);
-                    break;
-                case 2:
-                    boolean hasWiFi = CURmenus.promptWiFi();
-                    r.setHasWiFi(hasWiFi);
-                    break;
-                case 3:
-                    int bedType = CURmenus.promptBedType();
-                    r.setBedType(bedType);
-                    break;
-                case 4:
-                    int availability = CURmenus.promptAvailability();
-                    r.setAvailability(availability);
-                    break;
-                case 5:
-                    String facing = CURmenus.promptFacing();
-                    r.setFacing(facing);
-                    break;
-                default:
-                    System.err.println("Invalid choice.");
-            }
-            r.showRoom();
-        }
+                //look for room
+                Room r = (Room)rooms.get(roomIndex);
+                System.out.println("Room found:");
+                r.showRoom();
 
-        saveRoomDB();
+                //show edit menu
+                System.out.println("Choose what to edit: ");
+                System.out.println("1. Smoking");
+                System.out.println("2. Has WiFi");
+                System.out.println("3. Bed Type");
+                System.out.println("4. Availability");
+                System.out.println("5. Facing");
+
+                int editChoice = sc.nextInt();
+                switch(editChoice)
+                {
+                    case 1: //edit Type
+                        boolean isSmoking = CURmenus.promptSmoking();
+                        r.setSmoking(isSmoking);
+                        break;
+                    case 2:
+                        boolean hasWiFi = CURmenus.promptWiFi();
+                        r.setHasWiFi(hasWiFi);
+                        break;
+                    case 3:
+                        int bedType = CURmenus.promptBedType();
+                        r.setBedType(bedType);
+                        break;
+                    case 4:
+                        int availability = CURmenus.promptAvailability();
+                        r.setAvailability(availability);
+                        break;
+                    case 5:
+                        String facing = CURmenus.promptFacing();
+                        r.setFacing(facing);
+                        break;
+                    default:
+                        System.err.println("Invalid choice.");
+                }
+                r.showRoom();
+            }
+
+            saveRoomDB();
+        } catch (RoomNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     public void removeRoom()
     {
-        //TODO: remove room logic
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter room number to remove: ");
-        int roomNum = sc.nextInt();
-
-        int index = findRoom(roomNum);
-
-        if (index != -1)
-        {
+        try {
+            //TODO: remove room logic
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter room number to remove: ");
+            int roomNum = sc.nextInt();
+            int index = findRoom(roomNum);
             rooms.remove(index);
             System.out.println("Room "+roomNum+" has been removed.");
             saveRoomDB();
-        }
-        else {
-            System.out.print("Room does not exist.");
+        } catch (RoomNotFoundException ex) {
+            System.err.println(ex.getMessage());
         }
 
 
@@ -193,22 +196,26 @@ public class RoomManager {
 
     public static boolean roomExists(int roomNum)
     {
-        return (findRoom(roomNum)!=-1);
+        try {
+            return (findRoom(roomNum)!=-1);
+        } catch (RoomNotFoundException ex) {
+            return false;
+        }
     }
 
     public  void checkAvailability(int roomNumber)
     {
-        int index = findRoom(roomNumber);
-        if (index != -1)
-        {
+        try {
+            int index = findRoom(roomNumber);
             Room r = (Room)rooms.get(index);
             r.getAvailabilityString();
             System.out.println("Room#"+roomNumber+"\t"+r.getAvailabilityString());
+        } catch (RoomNotFoundException ex) {
+           System.err.println(ex.getMessage());
         }
-        else
-            System.err.println("Room not found.");
     }
-    public static int findRoom(int roomNum)
+
+    public static int findRoom(int roomNum) throws RoomNotFoundException
     {
         int i;
         Room r;
@@ -224,14 +231,16 @@ public class RoomManager {
 
     public Room chooseRoom()
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter room number: ");
-        int rn = sc.nextInt(), index;
-        index = findRoom(rn);
-        if (index!=-1)
+        try {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter room number: ");
+            int rn = sc.nextInt(), index;
+            index = findRoom(rn);
             return (Room)rooms.get(index);
-        else
-            return null;
+        } catch (RoomNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return null;
     }
 
     private void saveRoomDB()//private because we don't want other objects to affect db
@@ -240,14 +249,13 @@ public class RoomManager {
     }
 
     void makeAvailable(int rr) {
-        int index = findRoom(rr);
-        if (index != -1)
-        {
+        try {
+            int index = findRoom(rr);
             Room r = (Room)rooms.get(index);
             r.setAvailability(Room.VACANT);
             saveRoomDB();
+        } catch (RoomNotFoundException ex) {
+            System.err.println(ex.getMessage());
         }
-        else
-            System.err.println("Room not found.");
     }
 }
