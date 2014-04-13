@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,60 +39,64 @@ public class HotelManager {
 
             System.out.println("Enter Passport Number of guest: ");
             String pp = sc.next();
-            g = guestManager.findGuest(pp);
-            if (g.equals(null))
-                return;
-        }
-        System.out.println("Reservation for");
-        g.showGuest();
+            try {
+                g = guestManager.findGuest(pp);
+                System.out.println("Reservation for");
+                g.showGuest();
 
-        Room r = roomManager.chooseRoom();
-        if (r.equals(null))
-        {
-            System.err.println("Room not found.");
-        }
-        if (!reservationManager.existsReservation(r.getRoomNumber()))
-        {
-            System.out.println("Enter credit card no: ");
-            String cc = sc.next();
+                Room r = roomManager.chooseRoom();
+                if (r.equals(null))
+                {
+                    System.err.println("Room not found.");
+                }
+                if (!reservationManager.existsReservation(r.getRoomNumber()))
+                {
+                    System.out.println("Enter credit card no: ");
+                    String cc = sc.next();
 
-            System.out.println("Enter number of adults: ");
-            int nAdults = sc.nextInt();
+                    System.out.println("Enter number of adults: ");
+                    int nAdults = sc.nextInt();
 
-            System.out.println("Enter number of children: ");
-            int nChildren = sc.nextInt();
+                    System.out.println("Enter number of children: ");
+                    int nChildren = sc.nextInt();
 
 
-            Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren);
-            reservationManager.addReservation(newReservation);
-            newReservation.printReservationReceipt();
-        }
-        else
-        {
-            System.err.println("Exisiting reservation already found at this room. Proceed (Y/N)?");
-            input = sc.next();
-            if (input.toLowerCase().equals("y"))
-            {
-                System.out.println("Enter credit card no: ");
-                String cc = sc.next();
+                    Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren);
+                    reservationManager.addReservation(newReservation);
+                    newReservation.printReservationReceipt();
+                }
+                else
+                {
+                    System.err.println("Exisiting reservation already found at this room. Proceed (Y/N)?");
+                    input = sc.next();
+                    if (input.toLowerCase().equals("y"))
+                    {
+                        System.out.println("Enter credit card no: ");
+                        String cc = sc.next();
 
-                System.out.println("Enter number of adults: ");
-                int nAdults = sc.nextInt();
+                        System.out.println("Enter number of adults: ");
+                        int nAdults = sc.nextInt();
 
-                System.out.println("Enter number of children: ");
-                int nChildren = sc.nextInt();
+                        System.out.println("Enter number of children: ");
+                        int nChildren = sc.nextInt();
 
 
-                Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren, true);
-                reservationManager.addReservation(newReservation);
-                newReservation.printReservationReceipt();
+                        Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren, true);
+                        reservationManager.addReservation(newReservation);
+                        newReservation.printReservationReceipt();
+                    }
+                    else if (input.toLowerCase().equals("n"))
+                    {
+                        System.out.println("Reservation cancelled.");
+                    }
+
+                }
+            } catch (GuestNotFoundException ex) {
+                Logger.getLogger(HotelManager.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else if (input.toLowerCase().equals("n"))
-            {
-                System.out.println("Reservation cancelled.");
-            }
 
         }
+
 
     }
 

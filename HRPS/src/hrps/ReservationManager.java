@@ -91,7 +91,6 @@ public class ReservationManager {
         }
         catch (ReservationNotFoundException ex)
         {
-            System.err.println(ex.getMessage());
         }
         return false;
     }

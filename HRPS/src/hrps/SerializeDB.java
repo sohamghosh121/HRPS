@@ -35,9 +35,6 @@ public class SerializeDB
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
-		// print out the size
-		//System.out.println(" Details Size: " + pDetails.size());
-		//System.out.println();
 		return pDetails;
 	}
 
