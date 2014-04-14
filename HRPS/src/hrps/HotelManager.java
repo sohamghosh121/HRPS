@@ -38,22 +38,28 @@ public class HotelManager {
         else if (input.toLowerCase().equals("n"))
         {
 
-            System.out.println("Enter Passport Number of guest: ");
-            String pp = sc.next();
-            try
+            while(true)
             {
-                g = guestManager.findGuest(pp);
+                System.out.println("Enter Passport Number of guest: ");
+                String pp = sc.next();
+                try
+                {
+                    g = guestManager.findGuest(pp);
+                    break;
+                }
+                catch (GuestNotFoundException ex)
+                {
+                }
             }
-            catch (GuestNotFoundException ex)
-            {
-            }
+
         }
+
         try
         {
              System.out.println("Reservation for");
                 g.showGuest();
                 Room r = roomManager.chooseRoom();
-                if (r == null || r.isAvailable())
+                if (r == null || r.getAvailability() == Room.UNDER_MAINTENANCE)
                     throw new RoomNotFoundException();
                 if (!reservationManager.existsReservation(r.getRoomNumber()))
                 {
@@ -61,20 +67,26 @@ public class HotelManager {
                     int nAdults = CURmenus.promptnAdults();
                     int nChildren = CURmenus.promptnChildren();
                     Calendar checkInDate = CURmenus.promptDate("check-in");
-                    try
+                    while(true)
                     {
-                        Calendar checkOutDate = CURmenus.promptDate("check-out");
-                        if (checkOutDate.before(checkInDate))
-                            throw new InvalidDateException();
-                        Reservation newReservation = new Reservation(r, g, cc, checkInDate, checkOutDate, nAdults, nChildren);
-                        reservationManager.addReservation(newReservation);
-                        newReservation.printReservationReceipt();
+                        try
+                        {
+                            Calendar checkOutDate = CURmenus.promptDate("check-out");
+                            if (checkOutDate.before(checkInDate))
+                                throw new InvalidDateException();
+                            Reservation newReservation = new Reservation(r, g, cc, checkInDate, checkOutDate, nAdults, nChildren);
+                            reservationManager.addReservation(newReservation);
+                            newReservation.printReservationReceipt();
+                            break;
+                        }
+
+                        catch (InvalidDateException ex)
+                        {
+                            System.err.println(ex.getMessage()+" Enter again: ");
+                        }
+
                     }
 
-                    catch (InvalidDateException ex)
-                    {
-                        System.err.println(ex.getMessage()+" Enter again: ");
-                    }
                 }
                 else
                 {
@@ -109,8 +121,10 @@ public class HotelManager {
 
         }
         catch (RoomNotFoundException ex)
-        {
-        }
+            {
+                System.err.println(ex.getMessage());
+
+            }
 
 
 

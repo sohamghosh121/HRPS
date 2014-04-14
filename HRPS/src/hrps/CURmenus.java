@@ -245,7 +245,7 @@ public class CURmenus {
                 String date = sc.next();
                 Calendar c = Calendar.getInstance();
                 c.setTime(sdf.parse(date));
-                if (c.compareTo(Calendar.getInstance())<0)
+                if (c.before(Calendar.getInstance()))
                 {
                     throw new InvalidDateException();
                 }
