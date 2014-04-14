@@ -151,7 +151,7 @@ public class HotelManager {
         System.out.println("Enter room number: ");
         int rn = sc.nextInt(), type;
         Reservation r = reservationManager.getReservation(rn);
-        if (r.equals(null))
+        if (r ==null)
             return;
         //reservation exists
         if (r.getStatus()==Reservation.CHECKED_IN)
