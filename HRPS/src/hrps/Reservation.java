@@ -26,7 +26,7 @@ public class Reservation implements Serializable {
     private Calendar expiryDate;
     private Bill bill;
 
-    public Reservation (Room r, Guest g, String ccNo, int nAdults, int nChildren)
+    public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren)
     {
 
         this.room = r;
@@ -35,26 +35,21 @@ public class Reservation implements Serializable {
         this.nAdults = nAdults;
         this.nChildren = nChildren;
         this.status = CONFIRMED;
-        creationDate = Calendar.getInstance();
-        expiryDate = (Calendar)creationDate.clone();
-        expiryDate.set(Calendar.HOUR, creationDate.get(Calendar.HOUR)+1);
+        this.checkInDate = checkIn;
+        this.checkOutDate = checkOut;
+        expiryDate = (Calendar)this.checkInDate.clone();
+        expiryDate.set(Calendar.HOUR, checkInDate.get(Calendar.HOUR)+1);
     }
 
-    public Reservation (Room r, Guest g, String ccNo, int nAdults, int nChildren, boolean waitlist)
+    public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren, boolean waitlist)
     {
 
-        this.room = r;
-        this.guest = g;
-        this.creditCardNo = ccNo;
-        this.nAdults = nAdults;
-        this.nChildren = nChildren;
+        this(r, g, ccNo, checkIn, checkOut, nAdults, nChildren);
         if (waitlist)
             this.status = IN_WAITLIST;
         else
             this.status = CONFIRMED;
-        creationDate = Calendar.getInstance();
-        expiryDate = (Calendar)creationDate.clone();
-        expiryDate.set(Calendar.HOUR, creationDate.get(Calendar.HOUR)+1);
+
     }
 
 

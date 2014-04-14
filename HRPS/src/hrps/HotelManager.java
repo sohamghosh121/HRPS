@@ -61,7 +61,7 @@ public class HotelManager {
                         Calendar checkOutDate = CURmenus.promptDate("check-out");
                         if (checkOutDate.before(checkInDate))
                             throw new InvalidDateException();
-                        Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren, true);
+                        Reservation newReservation = new Reservation(r, g, cc, checkInDate, checkOutDate, nAdults, nChildren);
                         reservationManager.addReservation(newReservation);
                         newReservation.printReservationReceipt();
                     }
@@ -71,9 +71,7 @@ public class HotelManager {
                     }
 
 
-                    Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren);
-                    reservationManager.addReservation(newReservation);
-                    newReservation.printReservationReceipt();
+
                 }
                 else
                 {
@@ -90,7 +88,7 @@ public class HotelManager {
                             Calendar checkOutDate = CURmenus.promptDate("check-out");
                             if (checkOutDate.before(checkInDate))
                                 throw new InvalidDateException();
-                            Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren, true);
+                            Reservation newReservation = new Reservation(r, g, cc, checkInDate, checkOutDate, nAdults, nChildren, true);
                             reservationManager.addReservation(newReservation);
                             newReservation.printReservationReceipt();
                         }
@@ -106,7 +104,7 @@ public class HotelManager {
 
                 }
             } catch (GuestNotFoundException ex) {
-                Logger.getLogger(HotelManager.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println(ex.getMessage());
             }
 
         }
