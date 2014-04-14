@@ -4,6 +4,9 @@
  */
 package hrps;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
@@ -168,6 +171,91 @@ public class CURmenus {
         return contact;
     }
 
+// RESERVATION CUR MENUS
+    static String promptCreditCardNo()
+    {
+        while(true)
+            {
+                try
+                {
+                    System.out.println("Enter credit card no: ");
+                        String cc = sc.next();
+                    if (cc.length()!=16)
+                        throw new InvalidCreditCardException();
+                    else
+                    {
+                        int ckDig = Integer.parseInt(cc.substring(15));
+                        int d, i=1,ckSum = 0;
+                        while(i<16)
+                        {
+                            d = Integer.parseInt(cc.substring(15-i));
+                            if ((i-1)%2==0)
+                            {
+                                d*=2;
+                                d= (d%10)+d;
+                            }
+                            ckSum += d;
+                        }
+                        if ((ckSum+ckDig)%10 !=0)
+                            throw new InvalidCreditCardException();
+
+                        return cc;
+                    }
+                }
+                catch (InvalidCreditCardException ex)
+                {
+                System.err.println(ex.getMessage());
+                }
+        }
+    }
+
+
+    static int promptnChildren()
+    {
+        System.out.println("Enter number of children: ");
+            int nChildren = sc.nextInt();
+        return nChildren;
+    }
+
+
+    static int promptnAdults()
+    {
+        System.out.println("Enter number of adults: ");
+            int nAdults = sc.nextInt();
+        return nAdults;
+    }
+
+    static Calendar promptDate(String what)
+    {
+        while (true)
+        {
+            try
+            {
+                SimpleDateFormat sdf = new SimpleDateFormat("M/d/y");
+                System.out.println("\tEnter "+what+" date: ");
+                String date = sc.next();
+                Calendar c = Calendar.getInstance();
+                c.setTime(sdf.parse(date));
+                if (c.compareTo(Calendar.getInstance())<0)
+                {
+                    throw new InvalidDateException();
+                }
+
+
+            return c;
+            }
+            catch (ParseException ex)
+            {
+                System.err.println("Error in date.");
+            }
+            catch (InvalidDateException ex)
+            {
+                System.err.println(ex.getMessage());
+            }
+
+        }
+
+    }
 
 
 

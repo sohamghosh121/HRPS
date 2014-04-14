@@ -236,8 +236,9 @@ public class RoomManager {
             return rooms.get(index);
         } catch (RoomNotFoundException ex) {
             System.err.println(ex.getMessage());
+            return null;
         }
-        return null;
+
     }
 
     private void saveRoomDB()//private because we don't want other objects to affect db

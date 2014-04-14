@@ -52,14 +52,23 @@ public class HotelManager {
                 }
                 if (!reservationManager.existsReservation(r.getRoomNumber()))
                 {
-                    System.out.println("Enter credit card no: ");
-                    String cc = sc.next();
-
-                    System.out.println("Enter number of adults: ");
-                    int nAdults = sc.nextInt();
-
-                    System.out.println("Enter number of children: ");
-                    int nChildren = sc.nextInt();
+                    String cc = CURmenus.promptCreditCardNo();
+                    int nAdults = CURmenus.promptnAdults();
+                    int nChildren = CURmenus.promptnChildren();
+                    Calendar checkInDate = CURmenus.promptDate("check-in");
+                    try
+                    {
+                        Calendar checkOutDate = CURmenus.promptDate("check-out");
+                        if (checkOutDate.before(checkInDate))
+                            throw new InvalidDateException();
+                        Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren, true);
+                        reservationManager.addReservation(newReservation);
+                        newReservation.printReservationReceipt();
+                    }
+                    catch (InvalidDateException ex)
+                    {
+                        System.err.println(ex.getMessage()+" Enter again: ");
+                    }
 
 
                     Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren);
@@ -72,19 +81,23 @@ public class HotelManager {
                     input = sc.next();
                     if (input.toLowerCase().equals("y"))
                     {
-                        System.out.println("Enter credit card no: ");
-                        String cc = sc.next();
-
-                        System.out.println("Enter number of adults: ");
-                        int nAdults = sc.nextInt();
-
-                        System.out.println("Enter number of children: ");
-                        int nChildren = sc.nextInt();
-
-
-                        Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren, true);
-                        reservationManager.addReservation(newReservation);
-                        newReservation.printReservationReceipt();
+                        String cc = CURmenus.promptCreditCardNo();
+                        int nAdults = CURmenus.promptnAdults();
+                        int nChildren = CURmenus.promptnChildren();
+                        Calendar checkInDate = CURmenus.promptDate("check-in");
+                        try
+                        {
+                            Calendar checkOutDate = CURmenus.promptDate("check-out");
+                            if (checkOutDate.before(checkInDate))
+                                throw new InvalidDateException();
+                            Reservation newReservation = new Reservation(r, g, cc, nAdults, nChildren, true);
+                            reservationManager.addReservation(newReservation);
+                            newReservation.printReservationReceipt();
+                        }
+                        catch (InvalidDateException ex)
+                        {
+                            System.err.println(ex.getMessage()+" Enter again: ");
+                        }
                     }
                     else if (input.toLowerCase().equals("n"))
                     {
