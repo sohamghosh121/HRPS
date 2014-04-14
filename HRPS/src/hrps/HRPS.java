@@ -116,7 +116,12 @@ public class HRPS {
                 }
 
                 case 4:
-                    break;
+                    {
+                        System.out.println("Enter room number: ");
+                        int rn = sc.nextInt();
+                        hotel.reservationManager.getReservation(rn).printReceipt();
+                        break;
+                    }
                 case 5:
                 {
                     System.out.println("Enter room number: ");

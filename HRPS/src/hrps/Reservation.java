@@ -5,6 +5,7 @@
 package hrps;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -25,6 +26,7 @@ public class Reservation implements Serializable {
     private Calendar creationDate;
     private Calendar expiryDate;
     private Bill bill;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
     public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren)
     {
@@ -59,6 +61,8 @@ public class Reservation implements Serializable {
         System.out.println("----------------------------");
         System.out.println("Name: "+guest.getName());
         System.out.println("Contact: "+guest.getContact());
+        System.out.println("Check in: "+sdf.format(this.checkInDate.getTime()));
+        System.out.println("Check out: "+sdf.format(this.checkInDate.getTime()));
         System.out.println(showCreditCardNo());
         //System.out.println("Check in: "+checkInDate.toString());
         //System.out.println("Check out: "+checkOutDate.toString());
