@@ -43,7 +43,14 @@ public class HotelManager {
             try
             {
                 g = guestManager.findGuest(pp);
-                System.out.println("Reservation for");
+            }
+            catch (GuestNotFoundException ex)
+            {
+            }
+        }
+        try
+        {
+             System.out.println("Reservation for");
                 g.showGuest();
                 Room r = roomManager.chooseRoom();
                 if (r == null || r.isAvailable())
@@ -99,15 +106,12 @@ public class HotelManager {
                     }
 
                 }
-            }
-            catch (GuestNotFoundException ex)
-            {
-            }
-            catch (RoomNotFoundException ex)
-            {
-            }
 
         }
+        catch (RoomNotFoundException ex)
+        {
+        }
+
 
 
     }
