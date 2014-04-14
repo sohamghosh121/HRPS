@@ -174,32 +174,40 @@ public class CURmenus {
 // RESERVATION CUR MENUS
     static String promptCreditCardNo()
     {
+        String cc;
         while(true)
             {
                 try
                 {
                     System.out.println("Enter credit card no: ");
-                        String cc = sc.next();
+                    cc = sc.next();
                     if (cc.length()!=16)
                         throw new InvalidCreditCardException();
                     else
-                    {
+                    {//check if valid by Luhn's algorithm
                         int ckDig = Integer.parseInt(cc.substring(15));
                         int d, i=1,ckSum = 0;
                         while(i<16)
                         {
-                            d = Integer.parseInt(cc.substring(15-i));
+                            d = Integer.parseInt(cc.substring(15-i,16-i));
+
                             if ((i-1)%2==0)
                             {
                                 d*=2;
-                                d= (d%10)+d;
+                                if (d>10)
+                                    d= (d%10)+d;
                             }
                             ckSum += d;
+                            i++;
+
                         }
+                        System.out.println((ckSum+ckDig)%10);
                         if ((ckSum+ckDig)%10 !=0)
                             throw new InvalidCreditCardException();
+                        else
+                            break;
 
-                        return cc;
+
                     }
                 }
                 catch (InvalidCreditCardException ex)
@@ -207,6 +215,7 @@ public class CURmenus {
                 System.err.println(ex.getMessage());
                 }
         }
+        return cc;
     }
 
 

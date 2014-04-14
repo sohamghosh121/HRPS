@@ -40,16 +40,14 @@ public class HotelManager {
 
             System.out.println("Enter Passport Number of guest: ");
             String pp = sc.next();
-            try {
+            try
+            {
                 g = guestManager.findGuest(pp);
                 System.out.println("Reservation for");
                 g.showGuest();
-
                 Room r = roomManager.chooseRoom();
-                if (r.equals(null))
-                {
-                    System.err.println("Room not found.");
-                }
+                if (r == null || r.isAvailable())
+                    throw new RoomNotFoundException();
                 if (!reservationManager.existsReservation(r.getRoomNumber()))
                 {
                     String cc = CURmenus.promptCreditCardNo();
@@ -65,13 +63,11 @@ public class HotelManager {
                         reservationManager.addReservation(newReservation);
                         newReservation.printReservationReceipt();
                     }
+
                     catch (InvalidDateException ex)
                     {
                         System.err.println(ex.getMessage()+" Enter again: ");
                     }
-
-
-
                 }
                 else
                 {
@@ -103,8 +99,12 @@ public class HotelManager {
                     }
 
                 }
-            } catch (GuestNotFoundException ex) {
-                System.err.println(ex.getMessage());
+            }
+            catch (GuestNotFoundException ex)
+            {
+            }
+            catch (RoomNotFoundException ex)
+            {
             }
 
         }

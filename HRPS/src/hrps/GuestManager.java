@@ -133,13 +133,17 @@ public class GuestManager {
 
         }
         System.err.println("Guest not found");
-        return -1;
+        throw new GuestNotFoundException();
     }
 
     public static Guest findGuest(String ppNum) throws GuestNotFoundException
     {
-        int index = findGuestIndex(ppNum);
-        return guests.get(index);
+        try {
+            int index = findGuestIndex(ppNum);
+            return guests.get(index);
+        } catch (GuestNotFoundException ex) {
+            throw new GuestNotFoundException();
+        }
     }
 
     public void showGuests()

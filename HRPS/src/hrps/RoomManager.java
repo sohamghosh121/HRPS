@@ -223,7 +223,7 @@ public class RoomManager {
                 return i;
 
         }
-        return -1;
+        throw new RoomNotFoundException();
     }
 
     public Room chooseRoom()

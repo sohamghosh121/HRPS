@@ -105,4 +105,8 @@ public class Room implements Serializable{
     void setFacing(String facing) {
         this.type.setFacing(facing);
     }
+
+    boolean isAvailable() {
+        return (this.availability == this.VACANT);
+    }
 }
