@@ -151,6 +151,7 @@ public class ReservationManager {
     public void showReservations()
     {
         int i;
+        boolean anyChange=false;
         Reservation r;
         System.out.println("\nReservations:\n-----------------------------------------");
         if (reservations.size() == 0)
@@ -161,8 +162,12 @@ public class ReservationManager {
         for (i= 0; i<reservations.size();i++)
         {
             r = reservations.get(i);
+            if (r.checkExpired())
+                anyChange = true;
             r.showReservation();
         }
+        if (anyChange)
+            saveReservationsDB();
     }
 
     private void saveReservationsDB()//private because we don't want other objects to affect db

@@ -81,9 +81,10 @@ public class Reservation implements Serializable {
     public boolean checkExpired()
     {
         Calendar now = Calendar.getInstance();
-        if (now.compareTo(expiryDate)>0)
+        if (now.after(this.expiryDate))
         {
             this.status = Reservation.EXPIRED;
+            System.out.println("Expired!!!");
             return true;
         }
         else
@@ -158,7 +159,7 @@ public class Reservation implements Serializable {
 
     public void showReservation()
     {
-        System.out.println(guest.getName()+"\tRoom#"+room.getRoomNumber()+"\t"+getStatusString());
+        System.out.println(guest.getName()+"\tRoom#"+room.getRoomNumber()+"\t"+"Check in: "+sdf.format(this.checkInDate.getTime())+"\t\t"+"Check out: "+sdf.format(this.checkOutDate.getTime())+"\t"+getStatusString());
     }
 
     int getRoomNumber() {
