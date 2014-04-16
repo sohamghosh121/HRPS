@@ -6,6 +6,7 @@ package hrps;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class Bill implements Serializable{
     public static final double TAX_RATE = 0.07;
     private int roomNo;
-    ArrayList charges = new ArrayList();
+    List<Charge> charges = new ArrayList();
 
     public Bill(int rn)
     {
@@ -35,7 +36,7 @@ public class Bill implements Serializable{
         int numCharges = charges.size(), i;
         for (i=0; i<numCharges; i++)
         {
-            c = (Charge)charges.get(i);
+            c = charges.get(i);
             c.printCharge();
             tot += c.getAmount();
         }
