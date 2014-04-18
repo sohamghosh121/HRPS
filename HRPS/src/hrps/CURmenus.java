@@ -172,6 +172,16 @@ public class CURmenus {
     }
 
 // RESERVATION CUR MENUS
+    static void promptEditReservationMenu()
+    {
+            System.out.println("Choose what to edit: ");
+            System.out.println("1. Credit card number");
+            System.out.println("2. Check in date");
+            System.out.println("3. Check out date");
+            System.out.println("4. Reservation status");
+    }
+
+
     static String promptCreditCardNo()
     {
         String cc;
@@ -240,8 +250,8 @@ public class CURmenus {
         {
             try
             {
-                SimpleDateFormat sdf = new SimpleDateFormat("M/d/y");
-                System.out.println("\tEnter "+what+" date: ");
+                SimpleDateFormat sdf = new SimpleDateFormat("d/M/y");
+                System.out.println("Enter "+what+" date: ");
                 String date = sc.next();
                 Calendar c = Calendar.getInstance();
                 c.setTime(sdf.parse(date));
@@ -261,12 +271,60 @@ public class CURmenus {
             {
                 System.err.println(ex.getMessage());
             }
-
         }
+    }
 
+    static int promptReservationStatus()
+    {
+        int choice;
+        do
+        {
+            System.out.println("Enter new status: ");
+            System.out.println("1. Confirmed");
+            System.out.println("2. In waitlist");
+            System.out.println("3. In enquiry");
+            System.out.println("4. Expired");
+
+            choice = sc.nextInt();
+            switch(choice)
+            {
+                case 1: return Reservation.CONFIRMED;
+                case 2: return Reservation.IN_WAITLIST;
+                case 3: return Reservation.INQUIRY;
+                case 4: return Reservation.EXPIRED;
+                default: System.err.println("Invalid input");
+            }
+        }while(choice<1 || choice > 4);
+
+        return -1;
     }
 
 
+    static int promptTypeOfCharges()
+    {
+        int type, choice;
 
+        do
+        {
+            System.out.println("Choose type of charges: ");
+            System.out.println("\t1. Room charges");
+            System.out.println("\t2. Room service");
+            System.out.println("\t3. Food charges");
+            System.out.println("\t4. Transportation charges");
+            choice = sc.nextInt();
 
+            switch (choice)
+            {
+                case 1: type = Charge.ROOM_CHARGE; break;
+                case 2: type = Charge.ROOM_SERVICE; break;
+                case 3: type = Charge.FOOD_CHARGE; break;
+                case 4: type = Charge.TRANSPORT_CHARGE; break;
+                //case 5: type = Charge.TAX; break;
+                default: type = 0; System.err.println("Invalid choice.");
+            }
+        }while(type == 0);
+
+        return type;
+
+    }
 }

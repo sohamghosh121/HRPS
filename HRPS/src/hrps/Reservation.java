@@ -7,6 +7,7 @@ package hrps;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.util.Calendar;
 public class Reservation implements Serializable {
     public static final int CONFIRMED = 1, IN_WAITLIST = 2, INQUIRY = 3, CHECKED_IN = 4, CHECKED_OUT = 5, EXPIRED = -1;
 
+    private String id;
     private Guest guest;
     private Room room;
     private String creditCardNo;
@@ -41,6 +43,8 @@ public class Reservation implements Serializable {
         this.checkOutDate = checkOut;
         expiryDate = (Calendar)this.checkInDate.clone();
         expiryDate.set(Calendar.HOUR, checkInDate.get(Calendar.HOUR)+1);
+        SimpleDateFormat s = new SimpleDateFormat("ddMM");
+        id = r.getRoomNumber()+g.getPassportNumber().substring(3)+s.format(checkIn.getTime())+s.format(checkOut.getTime());
     }
 
     public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren, boolean waitlist)
@@ -59,13 +63,12 @@ public class Reservation implements Serializable {
     {
         System.out.println("Reservation receipt");
         System.out.println("----------------------------");
+        System.out.append("ID: "+this.id);
         System.out.println("Name: "+guest.getName());
         System.out.println("Contact: "+guest.getContact());
         System.out.println("Check in: "+sdf.format(this.checkInDate.getTime()));
-        System.out.println("Check out: "+sdf.format(this.checkInDate.getTime()));
+        System.out.println("Check out: "+sdf.format(this.checkOutDate.getTime()));
         System.out.println(showCreditCardNo());
-        //System.out.println("Check in: "+checkInDate.toString());
-        //System.out.println("Check out: "+checkOutDate.toString());
         System.out.println(nAdults+" adults, "+nChildren+" children");
         System.out.println("STATUS: "+getStatusString());
 
@@ -117,6 +120,11 @@ public class Reservation implements Serializable {
         return s;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    
     public int getStatus()
     {
         return status;
@@ -125,6 +133,18 @@ public class Reservation implements Serializable {
     public void setStatus(int status)
     {
         this.status = status;
+    }
+
+    public void setCreditCardNo(String creditCardNo) {
+        this.creditCardNo = creditCardNo;
+    }
+
+    public void setCheckInDate(Calendar checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public void setCheckOutDate(Calendar checkOutDate) {
+        this.checkOutDate = checkOutDate;
     }
 
     public void checkIn()
@@ -138,14 +158,7 @@ public class Reservation implements Serializable {
         status=this.CHECKED_OUT;
         checkOutDate=Calendar.getInstance();
     }
-    public void printReservationReceipt()
-    {
-        System.out.println("\nReservation receipt:");
-        System.out.println(guest.getName()+guest.getContact());
-        System.out.println(showCreditCardNo());
-        System.out.println("Room# "+room.getRoomNumber());
-        System.out.println(this.getStatusString());
-    }
+
 
     public Bill getBill()
     {
