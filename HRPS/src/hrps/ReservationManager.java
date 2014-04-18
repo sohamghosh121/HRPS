@@ -63,6 +63,19 @@ public class ReservationManager {
           throw new ReservationNotFoundException();
     }
 
+    public int findReservation(int rn) throws ReservationNotFoundException
+    {
+        int i;
+        Reservation r;
+        for (i=0; i<reservations.size(); i++)
+        {
+            r = reservations.get(i);
+            if (r.getRoomNumber() == rn && (r.getStatus()!=Reservation.CHECKED_OUT || r.getStatus()!= Reservation.CHECKED_IN))
+                return i;
+        }
+          throw new ReservationNotFoundException();
+    }
+
     public Reservation getReservation(String id)
     {
         try
@@ -80,11 +93,28 @@ public class ReservationManager {
         return null;
     }
 
-    public boolean existsReservation(String id)
+    public Reservation getReservation(int rn)
     {
         try
         {
-            int index = findReservation(id);
+             int index = findReservation(rn);
+             System.out.println("Reservation found:");
+             return reservations.get(index);
+
+        }
+        catch (ReservationNotFoundException ex)
+        {
+            System.err.println(ex.getMessage());
+
+        }
+        return null;
+    }
+
+    public boolean existsReservation(int rn)
+    {
+        try
+        {
+            int index = findReservation(rn);
             Reservation r;
             r = reservations.get(index);
             return !r.checkExpired();//return true if reservation is not expired (ie a valid reservation exists)

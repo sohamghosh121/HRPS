@@ -4,12 +4,8 @@
  */
 package hrps;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +24,6 @@ public class HotelManager {
     {
         System.out.println("Create reservation:");
         System.out.println("New guest: (Y/N)");
-        Scanner sc = new Scanner(System.in);
         String input = sc.next();
         Guest g = new Guest();
         if (input.toLowerCase().equals("y"))
@@ -145,7 +140,7 @@ public class HotelManager {
         }
         catch(ReservationNotFoundException ex)
         {
-            
+
         }
 
     }
@@ -163,7 +158,7 @@ public class HotelManager {
             r.showReservation();
             billManager.showBill(rr);
             //reservationManager.deleteReservation(rr);
-            reservationManager.checkOut(rr);
+            //reservationManager.checkOut(rr);
             billManager.removeBill(rr);
             roomManager.makeAvailable(rr);
         }

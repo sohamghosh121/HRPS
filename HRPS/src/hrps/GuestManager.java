@@ -110,7 +110,7 @@ public class GuestManager {
 
     }
 
-    public static boolean guestExists(String ppNum)
+    public boolean guestExists(String ppNum)
     {
         boolean returnVal;
         try {
@@ -121,7 +121,7 @@ public class GuestManager {
         return returnVal;
     }
 
-    public static int findGuestIndex(String ppNum) throws GuestNotFoundException
+    public int findGuestIndex(String ppNum) throws GuestNotFoundException
     {
         int i;
         Guest g;
@@ -136,7 +136,7 @@ public class GuestManager {
         throw new GuestNotFoundException();
     }
 
-    public static Guest findGuest(String ppNum) throws GuestNotFoundException
+    public Guest findGuest(String ppNum) throws GuestNotFoundException
     {
         try {
             int index = findGuestIndex(ppNum);
