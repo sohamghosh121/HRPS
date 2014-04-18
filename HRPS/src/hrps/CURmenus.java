@@ -211,7 +211,6 @@ public class CURmenus {
                             i++;
 
                         }
-                        System.out.println((ckSum+ckDig)%10);
                         if ((ckSum+ckDig)%10 !=0)
                             throw new InvalidCreditCardException();
                         else

@@ -119,7 +119,10 @@ public class HRPS {
                     {
                         System.out.println("Enter reservation ID: ");
                         String id = sc.next();
-                        hotel.reservationManager.getReservation(id).printReceipt();
+                        Reservation r = hotel.reservationManager.getReservation(id);
+                        if (r != null) {
+                            r.printReceipt();
+                        }
                         break;
                     }
                 case 5:

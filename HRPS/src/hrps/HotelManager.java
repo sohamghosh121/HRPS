@@ -137,6 +137,7 @@ public class HotelManager {
         {
             int rn = reservationManager.checkIn(id);
             billManager.createNewBill(rn);
+            //billManager.addCharges(null, rn);
         }
         catch(ReservationNotFoundException ex)
         {
@@ -158,7 +159,7 @@ public class HotelManager {
             r.showReservation();
             billManager.showBill(rr);
             //reservationManager.deleteReservation(rr);
-            //reservationManager.checkOut(rr);
+            reservationManager.checkOut(rr);
             billManager.removeBill(rr);
             roomManager.makeAvailable(rr);
         }
@@ -171,13 +172,6 @@ public class HotelManager {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter room number: ");
         int rn = sc.nextInt();
-    //Reservation r = reservationManager.getReservation(rn);
-    //if (r ==null)
-    //    return;
-    //reservation exists
-    //if (r.getStatus()==Reservation.CHECKED_IN)
-    //{
-
         System.out.println("Enter description: ");
         String des = sc.next();
 
@@ -194,7 +188,7 @@ public class HotelManager {
 
         if (dis.toLowerCase().equals("y"))
         {
-            System.out.println("Enter discount: ");
+            System.out.println("Enter discount (%): ");
             discount = sc.nextDouble();
         }
         else

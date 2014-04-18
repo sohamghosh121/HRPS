@@ -38,7 +38,7 @@ public class Bill implements Serializable{
         {
             c = charges.get(i);
             c.printCharge();
-            tot += c.getAmount();
+            tot += c.getDiscountedAmount();
         }
         System.out.println("Total amount: \t"+tot);
         System.out.println("-------------------------------------------------");

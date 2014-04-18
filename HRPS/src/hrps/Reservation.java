@@ -124,7 +124,7 @@ public class Reservation implements Serializable {
         return id;
     }
 
-    
+
     public int getStatus()
     {
         return status;
@@ -172,7 +172,7 @@ public class Reservation implements Serializable {
 
     public void showReservation()
     {
-        System.out.println(guest.getName()+"\tRoom#"+room.getRoomNumber()+"\t"+"Check in: "+sdf.format(this.checkInDate.getTime())+"\t\t"+"Check out: "+sdf.format(this.checkOutDate.getTime())+"\t"+getStatusString());
+        System.out.println("ID:"+id+"\t\t"+guest.getName()+"\tRoom#"+room.getRoomNumber()+"\t"+"Check in: "+sdf.format(this.checkInDate.getTime())+"\t\t"+"Check out: "+sdf.format(this.checkOutDate.getTime())+"\t"+getStatusString());
     }
 
     int getRoomNumber() {

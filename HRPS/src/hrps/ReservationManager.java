@@ -38,10 +38,10 @@ public class ReservationManager {
         }
     }
 
-    public void checkOut(String id)
+    public void checkOut(int rr)
     {
         try {
-            int res_id = findReservation(id);
+            int res_id = findReservation(rr, Reservation.CHECKED_IN);
             Reservation r = reservations.get(res_id);
             r.setStatus(Reservation.CHECKED_OUT);
             saveReservationsDB();
@@ -57,7 +57,7 @@ public class ReservationManager {
         for (i=0; i<reservations.size(); i++)
         {
             r = reservations.get(i);
-            if (r.getId()== id)
+            if (r.getId().equals(id))
                 return i;
         }
           throw new ReservationNotFoundException();
@@ -76,6 +76,19 @@ public class ReservationManager {
           throw new ReservationNotFoundException();
     }
 
+    public int findReservation(int rn, int status) throws ReservationNotFoundException
+    {
+        int i;
+        Reservation r;
+        for (i=0; i<reservations.size(); i++)
+        {
+            r = reservations.get(i);
+            if (r.getRoomNumber() == rn &&  r.getStatus() == status)
+                return i;
+        }
+          throw new ReservationNotFoundException();
+    }
+
     public Reservation getReservation(String id)
     {
         try
@@ -88,9 +101,8 @@ public class ReservationManager {
         catch (ReservationNotFoundException ex)
         {
             System.err.println(ex.getMessage());
-
+            return null;
         }
-        return null;
     }
 
     public Reservation getReservation(int rn)
@@ -105,9 +117,10 @@ public class ReservationManager {
         catch (ReservationNotFoundException ex)
         {
             System.err.println(ex.getMessage());
+            return null;
 
         }
-        return null;
+
     }
 
     public boolean existsReservation(int rn)

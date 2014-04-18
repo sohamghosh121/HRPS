@@ -32,6 +32,7 @@ public class BillManager {
         {
             b = bills.get(index);
             b.add(c);
+            saveBillsDB();
         }
     }
 

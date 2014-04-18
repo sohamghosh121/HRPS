@@ -5,6 +5,7 @@
 package hrps;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -35,16 +36,21 @@ public class Charge implements Serializable{
     {
         return amount;
     }
+
+    public double getDiscountedAmount()
+    {
+        return (100-discount)/100*amount;
+    }
     public void printCharge()
     {
-        double discounted_amount = (100-discount)/100*amount;
-        System.out.print(chargeName+"\t\t"+discounted_amount+"\t"+returnChargeType(type)+"\t"+timeStamp.getTime().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        System.out.print(chargeName+"\t\t"+getDiscountedAmount()+"\t"+returnChargeType(type)+"\t"+sdf.format(timeStamp.getTime().toString()));
         if (isWeekEnd)
             System.out.print("\tWeekend");
         else
             System.out.print("\tNon-weekend");
         if (discount != 0.0)
-            System.out.print("\tDiscount: "+(discount*100));
+            System.out.print("\tDiscount: "+(discount));
 
         System.out.println(" ");
     }
@@ -71,5 +77,9 @@ public class Charge implements Serializable{
                 break;
         }
         return chargeType;
+    }
+
+    double getDiscount() {
+        return this.discount;
     }
 }
