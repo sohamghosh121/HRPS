@@ -254,6 +254,9 @@ public class CURmenus {
                 String date = sc.next();
                 Calendar c = Calendar.getInstance();
                 c.setTime(sdf.parse(date));
+                c.set(Calendar.HOUR, 0);
+                c.set(Calendar.AM_PM, Calendar.PM);//check in time is at 12 noon
+                c.set(Calendar.MINUTE, 0);
                 if (c.before(Calendar.getInstance()))
                 {
                     throw new InvalidDateException();
