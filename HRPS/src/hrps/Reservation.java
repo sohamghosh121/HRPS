@@ -30,6 +30,73 @@ public class Reservation implements Serializable {
     private Bill bill;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
+    public Calendar getCheckInDate() {
+        return checkInDate;
+    }
+
+    public Calendar getCheckOutDate() {
+        return checkOutDate;
+    }
+
+     private String getStatusString()
+    {
+        String s="";
+        switch(status)
+        {
+            case CONFIRMED:
+                s="Confirmed";
+                break;
+            case IN_WAITLIST:
+                s="In waitlist";
+                break;
+            case INQUIRY:
+                s="Inquiry";
+                break;
+            case CHECKED_IN:
+                s="Checked in";
+                break;
+            case EXPIRED:
+                s="Expired";
+                break;
+            default:
+                s = "NO IDEA";
+        }
+        return s;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+
+    public int getStatus()
+    {
+        return status;
+    }
+
+    int getRoomNumber() {
+        return this.room.getRoomNumber();
+    }
+
+    public void setStatus(int status)
+    {
+        this.status = status;
+    }
+
+    public void setCreditCardNo(String creditCardNo) {
+        this.creditCardNo = creditCardNo;
+    }
+
+    public void setCheckInDate(Calendar checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public void setCheckOutDate(Calendar checkOutDate) {
+        this.checkOutDate = checkOutDate;
+    }
+
+
+
     public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren)
     {
 
@@ -94,58 +161,7 @@ public class Reservation implements Serializable {
             return false;
     }
 
-    private String getStatusString()
-    {
-        String s="";
-        switch(status)
-        {
-            case CONFIRMED:
-                s="Confirmed";
-                break;
-            case IN_WAITLIST:
-                s="In waitlist";
-                break;
-            case INQUIRY:
-                s="Inquiry";
-                break;
-            case CHECKED_IN:
-                s="Checked in";
-                break;
-            case EXPIRED:
-                s="Expired";
-                break;
-            default:
-                s = "NO IDEA";
-        }
-        return s;
-    }
 
-    public String getId() {
-        return id;
-    }
-
-
-    public int getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(int status)
-    {
-        this.status = status;
-    }
-
-    public void setCreditCardNo(String creditCardNo) {
-        this.creditCardNo = creditCardNo;
-    }
-
-    public void setCheckInDate(Calendar checkInDate) {
-        this.checkInDate = checkInDate;
-    }
-
-    public void setCheckOutDate(Calendar checkOutDate) {
-        this.checkOutDate = checkOutDate;
-    }
 
     public void checkIn()
     {
@@ -175,7 +191,5 @@ public class Reservation implements Serializable {
         System.out.println("ID:"+id+"\t\t"+guest.getName()+"\tRoom#"+room.getRoomNumber()+"\t"+"Check in: "+sdf.format(this.checkInDate.getTime())+"\t\t"+"Check out: "+sdf.format(this.checkOutDate.getTime())+"\t"+getStatusString());
     }
 
-    int getRoomNumber() {
-        return this.room.getRoomNumber();
-    }
+
 }

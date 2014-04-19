@@ -137,11 +137,11 @@ public class HotelManager {
         {
             int rn = reservationManager.checkIn(id);
             billManager.createNewBill(rn);
-            //billManager.addCharges(null, rn);
+            roomManager.setStatus(rn, Room.OCCUPIED);
         }
-        catch(ReservationNotFoundException ex)
+        catch(Exception ex)
         {
-
+            System.err.println(ex.getMessage());
         }
 
     }

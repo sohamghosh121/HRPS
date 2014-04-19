@@ -18,24 +18,33 @@ import java.util.logging.Logger;
 public class ReservationManager {
     private List<Reservation> reservations = (ArrayList)DBoperations.readSerializedObject("reservations.dat");
 
-    public int checkIn(String id) throws ReservationNotFoundException
+    public int checkIn(String id) throws ReservationNotFoundException,CheckInFailedException
     {
-        try
-        {
+
             int res_id = findReservation(id);
             Reservation r = reservations.get(res_id);
-            if (!r.checkExpired())
+            if (!r.checkExpired())// if not expired
             {
-                r.checkIn();
+                Calendar now = Calendar.getInstance();
+                if (now.after(r.getCheckInDate())||now.equals(r.getCheckInDate()))
+                {
+                    r.checkIn();
+                }
+                else
+                {
+                    throw new CheckInFailedException("You cannot check in yet.");
+                }
             }
+            else
+            {
+                throw new CheckInFailedException("Reservation expired.");
+            }
+
+
+
             saveReservationsDB();
             return r.getRoomNumber();
-        }
-        catch (ReservationNotFoundException ex)
-        {
-            System.err.println(ex.getMessage());
-            throw new ReservationNotFoundException();
-        }
+
     }
 
     public void checkOut(int rr)

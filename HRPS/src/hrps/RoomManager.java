@@ -246,14 +246,20 @@ public class RoomManager {
         DBoperations.writeSerializedObject("rooms.dat", rooms);
     }
 
-    void makeAvailable(int rr) {
+    void setStatus(int rr, int status) {
         try {
             int index = findRoom(rr);
             Room r = rooms.get(index);
-            r.setAvailability(Room.VACANT);
+            r.setAvailability(status);
             saveRoomDB();
         } catch (RoomNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
     }
+
+    void makeAvailable (int rr)
+    {
+        setStatus(rr, Room.VACANT);
+    }
+
 }
