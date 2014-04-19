@@ -25,9 +25,7 @@ public class Reservation implements Serializable {
     private int nAdults;
     private int nChildren;
     private int status;
-    private Calendar creationDate;
     private Calendar expiryDate;
-    private Bill bill;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
     public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren)
@@ -57,7 +55,7 @@ public class Reservation implements Serializable {
             this.status = CONFIRMED;
 
     }
-        
+
     public Calendar getCheckInDate() {
         return checkInDate;
     }
@@ -153,7 +151,7 @@ public class Reservation implements Serializable {
     public boolean checkExpired()
     {
         Calendar now = Calendar.getInstance();
-        if (now.after(this.expiryDate))
+        if (now.after(this.expiryDate) && this.status!= Reservation.CHECKED_IN)
         {
             this.status = Reservation.EXPIRED;
             System.out.println("Expired!!!");
@@ -176,18 +174,6 @@ public class Reservation implements Serializable {
         status=this.CHECKED_OUT;
         checkOutDate=Calendar.getInstance();
     }
-
-
-    public Bill getBill()
-    {
-        return bill;
-    }
-
-    public void addCharges(Charge c)
-    {
-        bill.add(c);
-    }
-
     public void showReservation()
     {
         System.out.println("ID:"+id+"\t\t"+guest.getName()+"\tRoom#"+room.getRoomNumber()+"\t"+"Check in: "+sdf.format(this.checkInDate.getTime())+"\t\t"+"Check out: "+sdf.format(this.checkOutDate.getTime())+"\t"+getStatusString());
