@@ -30,6 +30,34 @@ public class Reservation implements Serializable {
     private Bill bill;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
+    public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren)
+    {
+
+        this.room = r;
+        this.guest = g;
+        this.creditCardNo = ccNo;
+        this.nAdults = nAdults;
+        this.nChildren = nChildren;
+        this.status = CONFIRMED;
+        this.checkInDate = checkIn;
+        this.checkOutDate = checkOut;
+        expiryDate = (Calendar)this.checkInDate.clone();
+        expiryDate.set(Calendar.HOUR, checkInDate.get(Calendar.HOUR)+1);
+        SimpleDateFormat s = new SimpleDateFormat("ddMM");
+        id = r.getRoomNumber()+g.getPassportNumber().substring(3)+s.format(checkIn.getTime())+s.format(checkOut.getTime());
+    }
+
+    public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren, boolean waitlist)
+    {
+
+        this(r, g, ccNo, checkIn, checkOut, nAdults, nChildren);
+        if (waitlist)
+            this.status = IN_WAITLIST;
+        else
+            this.status = CONFIRMED;
+
+    }
+    
     public Calendar getCheckInDate() {
         return checkInDate;
     }
@@ -97,33 +125,7 @@ public class Reservation implements Serializable {
 
 
 
-    public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren)
-    {
 
-        this.room = r;
-        this.guest = g;
-        this.creditCardNo = ccNo;
-        this.nAdults = nAdults;
-        this.nChildren = nChildren;
-        this.status = CONFIRMED;
-        this.checkInDate = checkIn;
-        this.checkOutDate = checkOut;
-        expiryDate = (Calendar)this.checkInDate.clone();
-        expiryDate.set(Calendar.HOUR, checkInDate.get(Calendar.HOUR)+1);
-        SimpleDateFormat s = new SimpleDateFormat("ddMM");
-        id = r.getRoomNumber()+g.getPassportNumber().substring(3)+s.format(checkIn.getTime())+s.format(checkOut.getTime());
-    }
-
-    public Reservation (Room r, Guest g, String ccNo, Calendar checkIn, Calendar checkOut, int nAdults, int nChildren, boolean waitlist)
-    {
-
-        this(r, g, ccNo, checkIn, checkOut, nAdults, nChildren);
-        if (waitlist)
-            this.status = IN_WAITLIST;
-        else
-            this.status = CONFIRMED;
-
-    }
 
 
     public void printReceipt()
