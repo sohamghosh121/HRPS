@@ -98,6 +98,21 @@ public class ReservationManager {
           throw new ReservationNotFoundException();
     }
 
+    public boolean existsReservation(int rn)
+    {
+        try
+        {
+            int index = findReservation(rn);
+            Reservation r;
+            r = reservations.get(index);
+            return !r.checkExpired();//return true if reservation is not expired (ie a valid reservation exists)
+        }
+        catch (ReservationNotFoundException ex)
+        {
+            return false;
+        }
+    }
+
     public Reservation getReservation(String id)
     {
         try
@@ -132,20 +147,7 @@ public class ReservationManager {
 
     }
 
-    public boolean existsReservation(int rn)
-    {
-        try
-        {
-            int index = findReservation(rn);
-            Reservation r;
-            r = reservations.get(index);
-            return !r.checkExpired();//return true if reservation is not expired (ie a valid reservation exists)
-        }
-        catch (ReservationNotFoundException ex)
-        {
-            return false;
-        }
-    }
+
 
 
     public void editReservation()

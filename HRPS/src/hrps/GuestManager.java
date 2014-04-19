@@ -132,7 +132,6 @@ public class GuestManager {
                 return i;
 
         }
-        System.err.println("Guest not found");
         throw new GuestNotFoundException();
     }
 
