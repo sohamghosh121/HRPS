@@ -250,7 +250,7 @@ public class CURmenus {
             try
             {
                 SimpleDateFormat sdf = new SimpleDateFormat("d/M/y");
-                System.out.println("Enter "+what+" date: ");
+                System.out.println("Enter "+what+" date: (dd/mm/yyyy)");
                 String date = sc.next();
                 Calendar c = Calendar.getInstance();
                 c.setTime(sdf.parse(date));
