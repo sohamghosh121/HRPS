@@ -57,7 +57,7 @@ public class Reservation implements Serializable {
             this.status = CONFIRMED;
 
     }
-    
+        
     public Calendar getCheckInDate() {
         return checkInDate;
     }

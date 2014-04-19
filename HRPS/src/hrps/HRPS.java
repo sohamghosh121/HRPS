@@ -101,7 +101,14 @@ public class HRPS {
                     switch (curchoice)
                     {
                         case 1:
-                            hotel.makeReservation();
+                            try
+                            {
+                                hotel.makeReservation();
+                            }
+                            catch(ReservationFailedException ex)
+                            {
+                                System.err.println(ex.getMessage());
+                            }
                             break;
                         case 2:
                             hotel.reservationManager.editReservation();

@@ -92,10 +92,6 @@ public class HotelManager {
             {
                 System.err.println(ex.getMessage());
             }
-        catch (ReservationFailedException ex)
-        {
-            System.err.println(ex.getMessage());
-        }
 
 
 
