@@ -96,6 +96,7 @@ public class CURmenus {
         System.out.println("\t2. Occupied");
         System.out.println("\t3. Reserved");
         System.out.println("\t4. Under maintentance");
+        System.out.print("Enter choice: ");
 
         int choice = sc.nextInt();
         int availability;
@@ -134,39 +135,40 @@ public class CURmenus {
             System.out.println("4. Passport Number");
             System.out.println("5. Nationality");
             System.out.println("6. Contact");
+            System.out.print("Enter choice: ");
     }
 
     static String promptName() {
-        System.out.println("Enter name: ");
+        System.out.print("Enter name: ");
         return sc.nextLine();
     }
 
     static String promptAddress() {
-        System.out.println("Enter address: ");
+        System.out.print("Enter address: ");
         return sc.nextLine();
     }
 
     static int promptGender() {
-        System.out.println("Enter gender (M/F): ");
+        System.out.print("Enter gender (M/F): ");
         String sex= sc.next();
         int gender = (sex.equals("M")||sex.equals("m")) ? Guest.MALE : Guest.FEMALE;
         return gender;
     }
 
     static String promptPPnum() {
-        System.out.println("Enter passport number: ");
+        System.out.print("Enter passport number: ");
         String pp = sc.next();
         return pp;
     }
 
     static String promptNationality() {
-        System.out.println("Enter nationality: ");
+        System.out.print("Enter nationality: ");
         String nat = sc.next();
         return nat;
     }
 
     static String promptContact() {
-        System.out.println("Enter contact: ");
+        System.out.print("Enter contact: ");
         String contact = sc.next();
         return contact;
     }
@@ -179,6 +181,7 @@ public class CURmenus {
             System.out.println("2. Check in date");
             System.out.println("3. Check out date");
             System.out.println("4. Reservation status");
+            System.out.print("Enter choice: ");
     }
 
 
@@ -189,7 +192,7 @@ public class CURmenus {
             {
                 try
                 {
-                    System.out.println("Enter credit card no: ");
+                    System.out.print("Enter credit card no: ");
                     cc = sc.next();
                     if (cc.length()!=16)
                         throw new InvalidCreditCardException();
@@ -230,7 +233,7 @@ public class CURmenus {
 
     static int promptnChildren()
     {
-        System.out.println("Enter number of children: ");
+        System.out.print("Enter number of children: ");
             int nChildren = sc.nextInt();
         return nChildren;
     }
@@ -238,7 +241,7 @@ public class CURmenus {
 
     static int promptnAdults()
     {
-        System.out.println("Enter number of adults: ");
+        System.out.print("Enter number of adults: ");
             int nAdults = sc.nextInt();
         return nAdults;
     }
@@ -250,7 +253,7 @@ public class CURmenus {
             try
             {
                 SimpleDateFormat sdf = new SimpleDateFormat("d/M/y");
-                System.out.println("Enter "+what+" date: (dd/mm/yyyy)");
+                System.out.print("Enter "+what+" date: (dd/mm/yyyy)");
                 String date = sc.next();
                 Calendar c = Calendar.getInstance();
                 c.setTime(sdf.parse(date));
@@ -313,6 +316,7 @@ public class CURmenus {
             System.out.println("\t2. Room service");
             System.out.println("\t3. Food charges");
             System.out.println("\t4. Transportation charges");
+            System.out.print("Enter choice: ");
             choice = sc.nextInt();
 
             switch (choice)

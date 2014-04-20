@@ -49,48 +49,52 @@ public class HotelManager {
 
         }
 
-        try
-        {
+
              System.out.println("Reservation for");
                 g.showGuest();
-                Room r = roomManager.chooseRoom();
-                if (r == null || r.getAvailability() == Room.UNDER_MAINTENANCE)
-                    throw new RoomNotFoundException();
-                String cc = CURmenus.promptCreditCardNo();
-                int nAdults = CURmenus.promptnAdults();
-                int nChildren = CURmenus.promptnChildren();
-                Calendar checkInDate = CURmenus.promptDate("check-in");
-                if (reservationManager.existsReservation(r.getRoomNumber()))
-                {
-                    Reservation existingReservation = reservationManager.getReservation(r.getRoomNumber());
-                    if (existingReservation.getCheckInDate().before(checkInDate)&&existingReservation.getCheckOutDate().after(checkInDate))//there is an overlap of reservations
-                        throw new ReservationFailedException();
-                }
-                while(true)
-                {
-                    try
-                    {
-                        Calendar checkOutDate = CURmenus.promptDate("check-out");
-                        if (checkOutDate.before(checkInDate))
-                            throw new InvalidDateException();
-                        Reservation newReservation = new Reservation(r, g, cc, checkInDate, checkOutDate, nAdults, nChildren);
-                        reservationManager.addReservation(newReservation);
-                        newReservation.printReceipt();
-                        break;
-                    }
 
-                    catch (InvalidDateException ex)
-                    {
-                        System.err.println(ex.getMessage()+" Enter again: ");
-                    }
-
-                    }
-
-
-        }
-        catch (RoomNotFoundException ex)
+            while(true)
             {
-                System.err.println(ex.getMessage());
+                try
+                {
+                    Room r = roomManager.chooseRoom();
+                    if (r == null || r.getAvailability() == Room.UNDER_MAINTENANCE)
+                        throw new RoomNotFoundException();
+                    String cc = CURmenus.promptCreditCardNo();
+                    int nAdults = CURmenus.promptnAdults();
+                    int nChildren = CURmenus.promptnChildren();
+                    Calendar checkInDate = CURmenus.promptDate("check-in");
+                    if (reservationManager.existsReservation(r.getRoomNumber()))
+                    {
+                        Reservation existingReservation = reservationManager.getReservation(r.getRoomNumber());
+                        if (existingReservation.getCheckInDate().before(checkInDate)&&existingReservation.getCheckOutDate().after(checkInDate))//there is an overlap of reservations
+                            throw new ReservationFailedException();
+                    }
+                    while(true)
+                    {
+                        try
+                        {
+                            Calendar checkOutDate = CURmenus.promptDate("check-out");
+                            if (checkOutDate.before(checkInDate))
+                                throw new InvalidDateException();
+                            Reservation newReservation = new Reservation(r, g, cc, checkInDate, checkOutDate, nAdults, nChildren);
+                            reservationManager.addReservation(newReservation);
+                            newReservation.printReceipt();
+                            break;
+                        }
+
+                        catch (InvalidDateException ex)
+                        {
+                            System.err.println(ex.getMessage()+" Enter again: ");
+                        }
+
+                     }
+                    break;
+                }
+            catch (RoomNotFoundException ex)
+                {
+                    System.err.println(ex.getMessage());
+                }
             }
 
 

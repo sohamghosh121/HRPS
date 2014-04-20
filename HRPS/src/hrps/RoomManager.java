@@ -247,12 +247,16 @@ public class RoomManager {
     }
 
     void setStatus(int rr, int status) {
-        try {
+        try
+        {
             int index = findRoom(rr);
             Room r = rooms.get(index);
             r.setAvailability(status);
+            System.out.println("Room #"+rr+" is now "+r.getAvailabilityString()+".");
             saveRoomDB();
-        } catch (RoomNotFoundException ex) {
+        }
+        catch (RoomNotFoundException ex)
+        {
             System.err.println(ex.getMessage());
         }
     }

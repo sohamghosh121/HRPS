@@ -11,7 +11,7 @@ package hrps;
 public class RoomNotFoundException extends Exception{
     public RoomNotFoundException()
     {
-        super("Room not found.");
+        super("Room not found/not available.");
     }
 
 }
