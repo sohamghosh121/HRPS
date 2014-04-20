@@ -130,7 +130,7 @@ public class Reservation implements Serializable {
     {
         System.out.println("Reservation receipt");
         System.out.println("----------------------------");
-        System.out.append("ID: "+this.id);
+        System.out.println("ID: "+this.id);
         System.out.println("Name: "+guest.getName());
         System.out.println("Contact: "+guest.getContact());
         System.out.println("Check in: "+sdf.format(this.checkInDate.getTime()));
@@ -154,7 +154,6 @@ public class Reservation implements Serializable {
         if (now.after(this.expiryDate) && this.status!= Reservation.CHECKED_IN)
         {
             this.status = Reservation.EXPIRED;
-            System.out.println("Expired!!!");
             return true;
         }
         else

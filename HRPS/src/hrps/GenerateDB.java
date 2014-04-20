@@ -19,7 +19,12 @@ public class GenerateDB {
 
 
         int floor = 100, rn = 1, roomNum;
-        int availability = Room.VACANT;
+        int availability;
+        double rand = Math.random();
+        if (rand<0.05)
+            availability = Room.UNDER_MAINTENANCE;
+        else
+            availability = Room.VACANT;
         int bedType;
         boolean isSmoking = false;
         boolean hasWiFi = true;
@@ -46,8 +51,17 @@ public class GenerateDB {
 
             }
         }
+
+
+    ArrayList listOfPeople = new ArrayList();
+    listOfPeople.add(new Guest("Sam Winchester", "Rockford, Illinois", Guest.MALE, "A123456", "American", "sam@gmail.com"));
+    listOfPeople.add(new Guest("Dean Winchester", "Rockford, Illinois", Guest.MALE, "B123456", "American", "dean@gmail.com"));
+    listOfPeople.add(new Guest("Harry Potter", "4 Privet Drive", Guest.MALE, "C123456", "American", "harry@gmail.com"));
+    listOfPeople.add(new Guest("Bill Gates", "Medina, Washington", Guest.MALE, "D123456", "American", "bill@gmail.com"));
+
+
     DBoperations.writeSerializedObject("rooms.dat", listOfRooms);
-    DBoperations.writeSerializedObject("guests.dat", new ArrayList());
+    DBoperations.writeSerializedObject("guests.dat", listOfPeople);
     DBoperations.writeSerializedObject("reservations.dat", new ArrayList());
     DBoperations.writeSerializedObject("bills.dat", new ArrayList());
     }

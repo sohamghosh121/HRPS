@@ -39,7 +39,7 @@ public class Guest implements Serializable{
 
     public void showGuest()
     {
-        System.out.println(""+name+"\t"+gender+"\t"+address+"\t"+passportNumber+"\t"+nationality+"\t"+contact);
+        System.out.println(""+name+"\t\t"+getGenderString()+"\t"+address+"\t\t"+passportNumber+"\t"+nationality+"\t"+contact);
     }
 
 
@@ -62,6 +62,16 @@ public class Guest implements Serializable{
 
     public int getGender() {
         return gender;
+    }
+
+    public String getGenderString()
+    {
+        switch(gender)
+        {
+            case MALE: return "M";
+            case FEMALE: return "F";
+        }
+        return "";
     }
 
     public void setGender(int gender) {
