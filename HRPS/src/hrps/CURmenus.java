@@ -139,6 +139,7 @@ public class CURmenus {
     }
 
     static String promptName() {
+        sc.nextLine();
         System.out.print("Enter name: ");
         return sc.nextLine();
     }

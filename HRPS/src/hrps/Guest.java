@@ -39,7 +39,7 @@ public class Guest implements Serializable{
 
     public void showGuest()
     {
-        System.out.println("Name: "+name+"\tPassport: "+passportNumber+"\t\tContact: "+contact);
+        System.out.println(""+name+"\t"+gender+"\t"+address+"\t"+passportNumber+"\t"+nationality+"\t"+contact);
     }
 
 

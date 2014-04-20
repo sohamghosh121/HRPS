@@ -28,6 +28,7 @@ public class RoomManager {
         System.out.println("\t1. No criteria");
         System.out.println("\t2. Floor");
         System.out.println("\t3. Occupancy");
+        System.out.print("Enter choice: ");
         i = sc.nextInt();
 
         switch(i)
@@ -119,7 +120,7 @@ public class RoomManager {
         try {
             //TODO: edit room logic
             Scanner sc = new Scanner(System.in);
-            System.out.println("Enter room number to edit: ");
+            System.out.print("Enter room number to edit: ");
             int roomNum = sc.nextInt();
 
             int roomIndex = findRoom(roomNum);
@@ -137,6 +138,7 @@ public class RoomManager {
                 System.out.println("3. Bed Type");
                 System.out.println("4. Availability");
                 System.out.println("5. Facing");
+                System.out.print("Enter choice: ");
 
                 int editChoice = sc.nextInt();
                 switch(editChoice)
@@ -178,7 +180,7 @@ public class RoomManager {
         try {
             //TODO: remove room logic
             Scanner sc = new Scanner(System.in);
-            System.out.println("Enter room number to remove: ");
+            System.out.print("Enter room number to remove: ");
             int roomNum = sc.nextInt();
             int index = findRoom(roomNum);
             rooms.remove(index);
@@ -230,7 +232,7 @@ public class RoomManager {
     {
         try {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Enter room number: ");
+            System.out.print("Enter room number: ");
             int rn = sc.nextInt(), index;
             index = findRoom(rn);
             return rooms.get(index);

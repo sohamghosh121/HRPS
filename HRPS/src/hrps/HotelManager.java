@@ -23,7 +23,7 @@ public class HotelManager {
     public void makeReservation() throws ReservationFailedException
     {
         System.out.println("Create reservation:");
-        System.out.println("New guest: (Y/N)");
+        System.out.print("New guest: (Y/N)");
         String input = sc.next();
         Guest g = new Guest();
         if (input.toLowerCase().equals("y"))
@@ -35,7 +35,7 @@ public class HotelManager {
 
             while(true)
             {
-                System.out.println("Enter Passport Number of guest: ");
+                System.out.print("Enter Passport Number of guest: ");
                 String pp = sc.next();
                 try
                 {
@@ -106,7 +106,7 @@ public class HotelManager {
         Scanner sc = new Scanner(System.in);
         Guest g;
         String id;
-        System.out.println("Enter reservation ID:");
+        System.out.print("Enter reservation ID:");
         id=sc.next();
         try
         {
@@ -126,7 +126,7 @@ public class HotelManager {
         int rr,p;
         Guest g;
         Scanner sc= new Scanner(System.in);
-        System.out.println("Enter room number to check out:");
+        System.out.print("Enter room number to check out:");
         rr=sc.nextInt();
         Reservation r = reservationManager.getReservation(rr);
         if (r != null)
@@ -144,25 +144,25 @@ public class HotelManager {
     public void addCharges()
     {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter room number: ");
+        System.out.print("Enter room number: ");
         int rn = sc.nextInt();
-        System.out.println("Enter description: ");
+        System.out.print("Enter description: ");
         String des = sc.next();
 
 
-        //System.out.println("\t5. Tax");
+        //System.out.print("\t5. Tax");
         int type = CURmenus.promptTypeOfCharges();
 
-        System.out.println("Enter amount: ");
+        System.out.print("Enter amount: ");
         double amt = sc.nextDouble();
 
         double discount;
-        System.out.println("Discount (Y/N");
+        System.out.print("Discount (Y/N): ");
         String dis = sc.next();
 
         if (dis.toLowerCase().equals("y"))
         {
-            System.out.println("Enter discount (%): ");
+            System.out.print("Enter discount (%): ");
             discount = sc.nextDouble();
         }
         else
@@ -177,7 +177,7 @@ public class HotelManager {
 
 
         Charge c = new Charge(des, amt, type, isWeekEnd, discount);
-        Charge c_tax = new Charge("Tax: "+des, amt*Bill.TAX_RATE, Charge.TAX, isWeekEnd, discount);
+        Charge c_tax = new Charge("Tax", amt*Bill.TAX_RATE*(100-discount)/100, Charge.TAX, isWeekEnd, 0);
         billManager.addCharges(c, rn);
         billManager.addCharges(c_tax, rn);
     //}

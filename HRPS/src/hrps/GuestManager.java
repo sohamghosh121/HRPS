@@ -41,7 +41,7 @@ public class GuestManager {
     {
         try {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Enter passport number of guest: ");
+            System.out.print("Enter passport number of guest: ");
             String passportNumber = sc.nextLine();
             int guestIndex = findGuestIndex(passportNumber);
                 Guest g = guests.get(guestIndex);
@@ -96,7 +96,7 @@ public class GuestManager {
     {
         try {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Enter passport number of guest to remove: ");
+            System.out.print("Enter passport number of guest to remove: ");
             String ppNum= sc.nextLine();
             int index = findGuestIndex(ppNum);
             Guest g = guests.get(index);

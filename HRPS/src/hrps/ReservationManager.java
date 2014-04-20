@@ -202,7 +202,7 @@ public class ReservationManager {
 
     public void deleteReservation()
     {
-        System.out.print("Enter room number: ");
+        System.out.print("Enter reservation ID: ");
         Scanner sc = new Scanner(System.in);
         String id = sc.next();
         try
