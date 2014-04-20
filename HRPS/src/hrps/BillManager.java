@@ -45,6 +45,8 @@ public class BillManager {
             b = bills.get(index);
             b.printBill();
         }
+        else
+            System.err.println("No guests checked in at the moment.");
         saveBillsDB();
     }
 
